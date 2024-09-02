@@ -9,12 +9,15 @@ Upload to S3
 from langchain_community.document_loaders import GithubFileLoader
 from langchain.document_loaders.base import BaseLoader
 from server.knowledge_base.config import ACCESS_TOKEN
+from server.knowledge_base.load.loaders import gitHubLoader
+
 class DocumentLoader:
 
-    def __init__(self, loader) -> None: 
-        # Check that loader is a valid document loader, if provided
-        if not issubclass(loader, BaseLoader):
-            raise TypeError("loader must be a subclass of DocumentLoader")
-        self.loader = loader
-
-    def getDocuments (self):
+    def __init__(self, source) -> None: 
+        self.source = source
+    
+    def getDocuments(self, config):
+        if self.source == 'github':
+            loader = gitHubLoader(config)
+        if loader:
+            return loader
