@@ -1,3 +1,3 @@
 '''
-Put raw data in S3
+Store data in MongoDB Atlas
 '''
