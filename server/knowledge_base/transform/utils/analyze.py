@@ -24,7 +24,7 @@ def analyzeCSV(file_path):
     print("\nField counts saved to field_counts.csv")
 
 # Path to your CSV file
-csv_file_path = 'cwl_documents/cwl_documents.csv'
+csv_file_path = 'cwl_documents/raw_data/cwl_documents.csv'
 
 # Analyze the CSV file
 analyzeCSV(csv_file_path)

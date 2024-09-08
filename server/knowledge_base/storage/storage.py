@@ -1,5 +1,5 @@
 '''
-Store data in MongoDB Atlas or other databases
+Store data in MongoDB Atlas or other databases/files (CSV, JSON, etc.)
 '''
 import json
 from .utils.process import processDocument
@@ -16,7 +16,7 @@ class DocumentStorage:
             csv_data = [processDocument(doc) for doc in documents]
             
             df = pd.DataFrame(csv_data)
-            csv_file_path = 'cwl_documents/cwl_documents.csv'
+            csv_file_path = 'cwl_documents/raw_data/cwl_documents.csv'
             df.to_csv(csv_file_path, index=False)
             print(f"Documents saved to {csv_file_path}")
 
@@ -24,7 +24,7 @@ class DocumentStorage:
         if self.source == 'github':
             json_data = [processDocument(doc) for doc in documents]
             
-            json_file_path = 'cwl_documents/cwl_documents.json'
+            json_file_path = 'cwl_documents/raw_data/cwl_documents.json'
             Path('cwl_documents').mkdir(parents=True, exist_ok=True)
             with open(json_file_path, 'w') as f:
                 json.dump(json_data, f, indent=2)

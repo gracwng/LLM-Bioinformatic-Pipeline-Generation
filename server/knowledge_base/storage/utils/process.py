@@ -2,11 +2,14 @@ import os
 import yaml
 from yaml.loader import SafeLoader
 
+def removeAPIPrefix(url):
+    return url.replace('https://api.github.com/', 'https://github.com/')
+
 def processDocument(doc):
     doc_data = {
         'path': doc.metadata.get('path', ''),
         'sha': doc.metadata.get('sha', ''),
-        'source': doc.metadata.get('source', ''),
+        'source': removeAPIPrefix(doc.metadata.get('source', '')),
         'content': doc.page_content,
     }
 
