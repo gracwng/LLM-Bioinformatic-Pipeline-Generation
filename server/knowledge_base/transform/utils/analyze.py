@@ -5,10 +5,6 @@ import pandas as pd
 def analyzeCSV(file_path):
     # Read the CSV file
     df = pd.read_csv(file_path)
-    # Print out all the fields in the CSV file
-    print("\nFields in the CSV file:")
-    for field in df.columns:
-        print(field)
     
     # Calculate the number of data points for each field
     field_counts = {}
