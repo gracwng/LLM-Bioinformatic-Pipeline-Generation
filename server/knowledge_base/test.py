@@ -1,23 +1,18 @@
 import sys
 import os
-# Add the project root to the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-
-from pathlib import Path
 from ruamel import yaml
-from ruamel.yaml import YAML
-import pymongo
-from pymongo import MongoClient
 
 from server.knowledge_base.load.document_loading import DocumentLoader
 from server.knowledge_base.load.config import configs
 from cwl_utils.parser import load_document, save
 
 import pandas as pd
-import pandas as pd
 from cwl_utils.parser import load_document, save
 from schema_salad.exceptions import ValidationException
 import yaml
+# Add the project root to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 
 def is_valid_cwl(content):
     try:

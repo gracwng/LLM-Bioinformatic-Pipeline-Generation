@@ -23,7 +23,7 @@ def main(configs):
 
     ''' Transform documents to fit MongoDB db schema'''
 
-    '''Store transformed documents into CSV file'''
+    '''Store documents into CSV file'''
     docStorer = DocumentStorage('github')
     docStorer.storeRawDocumentsInCSV(documents)
 

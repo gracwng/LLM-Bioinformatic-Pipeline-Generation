@@ -45,19 +45,21 @@ def processDocument(doc):
         try:
             cwl_obj = load_document(doc.page_content)
             saved_obj = save(cwl_obj)
-            
-            # Validate and collect CWL data
-            validation_errors = validateCWL(saved_obj.get('requirements'), saved_obj.get('steps'))
-            if validation_errors:
-                doc_data.update(validation_errors)
-            
-            # Store the CWL data
+
             for key, value in saved_obj.items():
+                if key == 'requirements' and not isinstance(value, dict):
+                    doc_data['cwl_requirements_error'] = 'Requirements should be an object, not a list'
+                elif key == 'steps':
+                    for step_name, step_data in value.items():
+                        if 'run' in step_data:
+                            run_value = step_data['run']
+                            if isinstance(run_value, str) and not os.path.exists(run_value):
+                                doc_data[f'cwl_step_{step_name}_run_error'] = f"File not found: {run_value}"
+
                 doc_data[f'cwl_{key}'] = str(value)
 
         except ValidationException as e:
             doc_data['cwl_validation_error'] = str(e)
         except Exception as e:
             doc_data['cwl_error'] = str(e)
-    
     return doc_data

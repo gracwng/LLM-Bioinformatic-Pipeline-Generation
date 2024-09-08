@@ -10,7 +10,6 @@ class DocumentStorage:
     def __init__(self, source: str) -> None: 
         self.source = source
        
-    # main func for CSV
     def storeRawDocumentsInCSV(self, documents):
         if self.source == 'github':
             csv_data = [processDocument(doc) for doc in documents]
