@@ -33,4 +33,6 @@ cwl_schema = {
 class TransformDocument:
 
     def transformDocument(self, document):
+        pass
     def transformDocuments(self, documents):
+        pass

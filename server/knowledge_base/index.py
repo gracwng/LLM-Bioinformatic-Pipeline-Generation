@@ -1,9 +1,11 @@
+import os
+import sys
 import pymongo
 from pymongo import MongoClient
 
 from server.knowledge_base import DocumentLoader
-
 from server.knowledge_base.load.config import configs
+from server.knowledge_base.storage.storage import DocumentStorage
 # client = pymongo.MongoClient("mongodb+srv://granx:CzhklAsvIcilxtxV@dev.rm7ss.mongodb.net/")
 
 '''
@@ -18,10 +20,12 @@ def main(configs):
     docLoader = DocumentLoader('github')
 
     documents = docLoader.getDocuments(configs)
-    print(documents[0].page_content)
-    print(documents[0].metadata)
 
     ''' Transform documents to fit MongoDB db schema'''
+
+    '''Store transformed documents into CSV file'''
+    docStorer = DocumentStorage('github')
+    docStorer.storeRawDocumentsInCSV(documents)
 
     '''Store transformed documents into MongoDB'''
 
