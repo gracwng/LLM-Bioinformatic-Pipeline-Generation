@@ -1,10 +1,6 @@
 '''
 Provide functions for fetching and loading documents from different database sources
 
-Algorithm:
-Given a github repository, go through each folder and extract files that have the type .cwl
-Preprocess them (attach source e.g: github URL)
-Upload to MongoDB
 '''
 from server.knowledge_base.load.loaders import gitHubLoader
 
@@ -44,3 +40,5 @@ class DocumentLoader:
                     print(f"An error occurred while getting documents for config {config}: {e}")
 
         return documents
+    
+    

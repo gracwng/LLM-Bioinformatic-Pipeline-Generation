@@ -13,44 +13,61 @@ from server.knowledge_base.load.document_loading import DocumentLoader
 from server.knowledge_base.load.config import configs
 from cwl_utils.parser import load_document, save
 
+import pandas as pd
+import pandas as pd
+from cwl_utils.parser import load_document, save
+from schema_salad.exceptions import ValidationException
+import yaml
+
+def is_valid_cwl(content):
+    try:
+        yaml.safe_load(content)
+        return True
+    except yaml.YAMLError:
+        return False
+
 def main(configs):
     docLoader = DocumentLoader('github')
-
     documents = docLoader.getDocuments(configs)
-    print(documents[0].page_content)
-    print(documents[0].metadata)
 
+    csv_data = []
+    for doc in documents:
+        doc_data = {
+            'path': doc.metadata.get('path', ''),
+            'sha': doc.metadata.get('sha', ''),
+            'source': doc.metadata.get('source', ''),
+            'content': doc.page_content,
+            'is_valid_cwl': is_valid_cwl(doc.page_content)
+        }
 
-    # File Input - This is the only thing you will need to adjust or take in as an input to your function:
-    cwl_file = "https://github.com/common-workflow-library/bio-cwl-tools/blob/release/GATK/GATK-ApplyBQSR.cwl"  # or a plain string works as well
+        if doc_data['is_valid_cwl']:
+            try:
+                cwl_obj = load_document(doc.page_content)
+                saved_obj = save(cwl_obj)
 
-    # Import CWL Object
-    cwl_obj = load_document(documents[11].page_content)
+                for key, value in saved_obj.items():
+                    if key == 'requirements' and not isinstance(value, dict):
+                        doc_data['cwl_requirements_error'] = 'Requirements should be an object, not a list'
+                    elif key == 'steps':
+                        for step_name, step_data in value.items():
+                            if 'run' in step_data:
+                                run_value = step_data['run']
+                                if isinstance(run_value, str) and not os.path.exists(run_value):
+                                    doc_data[f'cwl_step_{step_name}_run_error'] = f"File not found: {run_value}"
 
-    # View CWL Object
-    print("List of object attributes:\n{}".format("\n".join(map(str, dir(cwl_obj)))))
+                    doc_data[f'cwl_{key}'] = str(value)
 
-    # Export CWL Object into a built-in typed object
-    saved_obj = save(cwl_obj) # """Convert a CWL Python object into a JSON/YAML serializable object."""
-    print(f"Export of the loaded CWL object: {saved_obj}.")
+            except ValidationException as e:
+                doc_data['cwl_validation_error'] = str(e)
+            except Exception as e:
+                doc_data['cwl_error'] = str(e)
+        
+        csv_data.append(doc_data)
 
-    # Save the CWL object to a file
-    yaml = YAML()
-    output_file = Path("cwl_documents/cwlDoc1.cwl")  # Specify the path where you want to save the file
+    df = pd.DataFrame(csv_data)
+    csv_file_path = 'cwl_documents.csv'
+    df.to_csv(csv_file_path, index=False)
+    print(f"Documents saved to {csv_file_path}")
 
-    with output_file.open('w') as file:
-        yaml.dump(saved_obj, file)
-
-    print(f"CWL object saved to {output_file}")
-
-    # # Access fields of the CWL object
-    # print("CWL Version:", cwl_obj.cwlVersion)
-    # print("Base Command:", cwl_obj.baseCommand)
-    # print("Inputs:", cwl_obj.inputs)
-
-    # Access fields in the saved object
-    print("Top-level keys in saved_obj:", saved_obj.keys())
-    for key, value in saved_obj.items():
-        print(f"Key: {key}, Value: {value}")
 if __name__ == '__main__':
     main(configs)

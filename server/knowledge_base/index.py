@@ -11,6 +11,7 @@ Load documents from github, workflowhub, other sources
 Parse & transform documents so they fit the MongoDB db schema
 Store documents into MongoDB
 '''
+
 def main(configs):
 
     ''' Load documents from github, workflowhub, other sources'''
