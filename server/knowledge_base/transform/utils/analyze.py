@@ -20,7 +20,7 @@ def analyzeCSV(file_path):
     # Optionally, save the field counts to a separate CSV
     field_counts_df = pd.DataFrame.from_dict(field_counts, orient='index', columns=['Count'])
     field_counts_df.index.name = 'Field'
-    field_counts_df.to_csv('field_counts.csv')
+    field_counts_df.to_csv('cwl_documents/raw_data/field_counts.csv')
     print("\nField counts saved to field_counts.csv")
 
 # Path to your CSV file

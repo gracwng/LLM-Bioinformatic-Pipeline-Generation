@@ -5,6 +5,7 @@ import json
 from .utils.process import processDocument
 import pandas as pd
 from pathlib import Path
+from .atlas_client import AtlasClient
 
 class DocumentStorage:
 
@@ -30,6 +31,25 @@ class DocumentStorage:
                 json.dump(json_data, f, indent=2)
             print(f"Documents saved to {json_file_path}")
 
-    # Example usage
-    # store_documents_in_csv(documents)
-                
+    def storeDocumentsInMongoDB(self, documents, config):
+        if self.source == 'github':
+            json_data = [processDocument(doc) for doc in documents]
+        database, collection = self.initializeDatabase(config)
+        database.addDocuments(collection, json_data)
+        print(f"Documents stored in MongoDB Atlas collection: {collection}")
+
+    # Initialize the MongoDB database
+    def initializeDatabase(self, config):
+        '''Expected configuration example:
+            mongodb_raw_cwl_files_config = {
+                'MONGODB_URI': os.environ.get('MONGODB_URI'),
+                'DB_NAME': 'LLM-Bioinformatic-Pipeline-Generation',
+                'COLLECTION_NAME': 'Raw-CWL-Files'
+                }
+        '''
+        MONGODB_URI = config['MONGODB_URI']
+        DB_NAME = config['DB_NAME']
+        collection = config['COLLECTION_NAME']
+        database = AtlasClient(MONGODB_URI, DB_NAME)
+        return database, collection
+

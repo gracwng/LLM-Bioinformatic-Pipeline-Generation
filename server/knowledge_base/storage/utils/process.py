@@ -1,10 +1,10 @@
-import os
 import yaml
 from yaml.loader import SafeLoader
 
 def removeAPIPrefix(url):
     return url.replace('https://api.github.com/', 'https://github.com/')
 
+# Process a single raw cwl file and builds a new object with the processed data
 def processDocument(doc):
     doc_data = {
         'path': doc.metadata.get('path', ''),
