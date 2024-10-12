@@ -5,7 +5,7 @@ import json
 from .utils.process import processDocument
 import pandas as pd
 from pathlib import Path
-from .atlas_client import AtlasClient
+from .utils.atlas_client import AtlasClient
 
 class DocumentStorage:
 

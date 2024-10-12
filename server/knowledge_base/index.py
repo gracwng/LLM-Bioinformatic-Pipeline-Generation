@@ -21,8 +21,8 @@ def main(raw_cwl_files_config, mongodb_raw_cwl_files_config):
     '''Store documents into CSV file'''
     docStorer = DocumentStorage('github')
     # docStorer.storeRawDocumentsInCSV(documents)
-    # docStorer.storeRawDocumentsInJSON(documents)
-    docStorer.storeDocumentsInMongoDB(documents, mongodb_raw_cwl_files_config)
+    docStorer.storeRawDocumentsInJSON(documents)
+    # docStorer.storeDocumentsInMongoDB(documents, mongodb_raw_cwl_files_config)
     '''Store transformed documents into MongoDB'''
     
 if __name__ == '__main__':
