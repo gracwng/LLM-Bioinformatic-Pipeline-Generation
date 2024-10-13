@@ -1,5 +1,7 @@
+import json
 from server.knowledge_base.config import ACCESS_TOKEN
 
+# data from github repositories
 common_workflow_library_config = { # https://github.com/common-workflow-library/bio-cwl-tools
     'repo': 'common-workflow-library/bio-cwl-tools',
     'branch': 'release',
@@ -25,6 +27,17 @@ ncbi_cwl_ngs_workflow_config = { # https://github.com/ncbi/cwl-ngs-workflows-cbb
 }
 
 
+
 # configuration for github database repositories 
 raw_cwl_files_config = [common_workflow_library_config, datirium_workflow_config, ncbi_cwl_ngs_workflow_config]
 # raw_cwl_files_config = [common_workflow_library_config]
+
+# data that originally came from workflowhub: 
+def readJson(file_path):
+    with open(file_path) as f:
+        data = json.load(f)
+    return data
+
+raw_workflowhub_cwl_files_config = readJson('/Users/gracewang/Documents/Breakthrough AI/Axle Informatics/LLM-Bioinformatic-Pipeline-Generation/server/knowledge_base/load/workflow_github_configs.json')
+
+# print(raw_workflowhub_cwl_files_config)

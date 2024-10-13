@@ -29,7 +29,8 @@ class DocumentStorage:
         if self.source == 'github':
             json_data = [processDocument(doc) for doc in documents]    
             
-            json_file_path = 'cwl_documents/raw_data/cwl_documents.json'
+            # json_file_path = 'cwl_documents/raw_data/cwl_documents.json'
+            json_file_path = '/Users/gracewang/Documents/Breakthrough AI/Axle Informatics/LLM-Bioinformatic-Pipeline-Generation/axle-env/workflowhub/cwl_documents.json'
             Path('cwl_documents').mkdir(parents=True, exist_ok=True)
             with open(json_file_path, 'w') as f:
                 json.dump(json_data, f, indent=2)

@@ -1,1 +1,3 @@
 \.env
+server/knowledge_base/load/process_workflowhub_data.py
+server/knowledge_base/load/workflow_github_configs.json
