@@ -12,6 +12,7 @@ def processDocument(doc):
         'source': removeAPIPrefix(doc.metadata.get('source', '')),
         'content': doc.page_content,
     }
+    print(doc_data['content'])
 
     try:
         # Parse the YAML content

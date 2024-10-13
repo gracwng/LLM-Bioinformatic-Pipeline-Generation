@@ -5,10 +5,10 @@ Transform data
 ''' Create Database Schema (defining our document structure for our DB)'''
 import json
 from pymongo import MongoClient
-import yaml
-import os
 from bson.objectid import ObjectId
 import datetime
+import getpass
+import os
 
 cwl_schema = {
     "_id": ObjectId,
@@ -29,12 +29,19 @@ cwl_schema = {
     "updatedAt": datetime.datetime
 }
 
+# for each document, we want to extract the fields from the cwl_schema and create a new document object with it
 class TransformDocument:
-    # for each document, we want to extract the fields from the cwl_schema and create a new document object with it
     def readJson(self, file_path):
         with open(file_path) as f:
             data = json.load(f)
         return data
+    '''
+    Takes a list of raw documents in the form of an array of json objects and transforms them to fit the schema (essentially filtering out the fields we don't need)
+    '''
+    def transformDocuments(self, documents): # idea: take each json object and transform it to fit the schema
+        transformedDocs = [self.transformDocument(doc) for doc in documents]
+        return transformedDocs
+    
     def transformDocument(self, document):
         transformedDoc = {}
         for key in cwl_schema.keys():
@@ -44,6 +51,9 @@ class TransformDocument:
                 transformedDoc[key] = str(datetime.datetime.now())
             elif key == "description":
                 transformedDoc[key] = document.get("cwl_doc", None)
+                if transformedDoc[key] == None: # we want to generate our own descriptions here
+                    
+                    pass
             else:
                 if key in document:
                     transformedDoc[key] = document[key]
@@ -52,10 +62,6 @@ class TransformDocument:
                 else:
                     transformedDoc[key] = None
         return transformedDoc
-        pass
-    def transformDocuments(self, documents): # idea: take each json object and transform it to fit the schema
-        transformedDocs = [self.transformDocument(doc) for doc in documents]
-        return transformedDocs
 
     def saveTransformedDocuments(self, documents, overWrite=False):
         if overWrite:

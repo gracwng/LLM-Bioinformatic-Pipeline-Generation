@@ -8,3 +8,9 @@ mongodb_raw_cwl_files_config = {
     'DB_NAME': 'LLM-Bioinformatic-Pipeline-Generation',
     'COLLECTION_NAME': 'Raw-CWL-Files'
 }
+
+mongodb_raw_cwl_files_config = {
+    'MONGODB_URI': os.environ.get('MONGODB_URI'),
+    'DB_NAME': 'LLM-Bioinformatic-Pipeline-Generation',
+    'COLLECTION_NAME': 'Transformed-CWL-Files'
+}

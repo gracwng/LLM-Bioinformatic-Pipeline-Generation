@@ -7,6 +7,10 @@ import pandas as pd
 from pathlib import Path
 from .utils.atlas_client import AtlasClient
 
+# from server.knowledge_base import DocumentLoader
+from server.knowledge_base.load.config import raw_cwl_files_config
+from server.knowledge_base.storage.config import mongodb_raw_cwl_files_config
+# from server.knowledge_base.storage.document_storing import DocumentStorage
 class DocumentStorage:
 
     def __init__(self, source: str) -> None: 
@@ -23,13 +27,14 @@ class DocumentStorage:
 
     def storeRawDocumentsInJSON(self, documents):
         if self.source == 'github':
-            json_data = [processDocument(doc) for doc in documents]
+            json_data = [processDocument(doc) for doc in documents]    
             
             json_file_path = 'cwl_documents/raw_data/cwl_documents.json'
             Path('cwl_documents').mkdir(parents=True, exist_ok=True)
             with open(json_file_path, 'w') as f:
                 json.dump(json_data, f, indent=2)
             print(f"Documents saved to {json_file_path}")
+            pass
 
     def storeDocumentsInMongoDB(self, documents, config):
         if self.source == 'github':
@@ -53,3 +58,16 @@ class DocumentStorage:
         database = AtlasClient(MONGODB_URI, DB_NAME)
         return database, collection
 
+
+
+'''
+Load documents from github, workflowhub, other sources
+Parse & transform documents so they fit the MongoDB db schema
+Store documents into MongoDB
+'''
+
+def main(raw_cwl_files_config, mongodb_raw_cwl_files_config):
+    '''Store transformed documents into MongoDB'''
+    
+if __name__ == '__main__':
+    main(raw_cwl_files_config, mongodb_raw_cwl_files_config)
