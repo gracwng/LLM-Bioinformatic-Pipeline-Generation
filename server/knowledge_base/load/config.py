@@ -38,6 +38,6 @@ def readJson(file_path):
         data = json.load(f)
     return data
 
-raw_workflowhub_cwl_files_config = readJson('/Users/gracewang/Documents/Breakthrough AI/Axle Informatics/LLM-Bioinformatic-Pipeline-Generation/server/knowledge_base/load/workflow_github_configs.json')
+raw_workflowhub_cwl_files_config = readJson('server/knowledge_base/load/workflow_github_configs.json')
 
 # print(raw_workflowhub_cwl_files_config)

@@ -2,6 +2,7 @@
 Provide functions for fetching and loading documents from different database sources
 
 '''
+import json
 from server.knowledge_base.load.loaders import gitHubLoader
 
 class DocumentLoader:
@@ -27,6 +28,7 @@ class DocumentLoader:
 
     def getDocuments(self, configs: list[dict[str, str]]):
         documents = []  # Initialize an empty list to hold documents
+        noDocuments = []  # Initialize an empty list to hold configs with no documents
         if self.source == 'github':
             for config in configs:
                 try:
@@ -36,8 +38,25 @@ class DocumentLoader:
                         documents += docs  # Append the retrieved documents
                     else:
                         print(f"No documents found for config: {config}")
+                        # Modify the branch to 'main' and try again
+                        original_branch = config['branch']
+                        config['branch'] = 'main'
+                        print(f"Trying again with branch 'main' for config: {config}")
+                        docs = self.getDocument(config)  # Attempt to get documents again
+                        if docs:
+                            documents += docs  # Append the retrieved documents
+                        else:
+                            print(f"Still no documents found for config: {config}")
+                            noDocuments.append(config)
+                        # Restore the original branch
+                        config['branch'] = original_branch
+            
                 except Exception as e:
                     print(f"An error occurred while getting documents for config {config}: {e}")
+                
+                # save the nodes with no documents to a json file
+            with open('cwl_documents/workflowhub/raw_data/no_documents.json', 'w') as f:
+                json.dump(noDocuments, f, indent=2)
 
         return documents
     

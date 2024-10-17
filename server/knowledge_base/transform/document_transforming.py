@@ -64,17 +64,32 @@ class TransformDocument:
         return transformedDoc
 
     def saveTransformedDocuments(self, documents, destLink, overWrite=False):
+        # before saving, remove all duplicates
+        unique_documents = self.remove_duplicates_by_source(documents)
         if overWrite:
             with open(destLink, 'w') as f:
-                json.dump(documents, f, indent=2)
+                json.dump(unique_documents, f, indent=2)
             print("Transformed documents saved to ", destLink)
         else:
             print("Permissions denied. Transformed documents not saved")
+    
+    def remove_duplicates_by_source(self, data):
+        unique_sources = set()
+        result = []
 
+        for item in data:
+            if item.get('source') and item['source'] not in unique_sources:
+                unique_sources.add(item['source'])
+                result.append(item)
+            else:
+                print(f"Duplicate source: {item['source']}")
+
+        return result
+    
 if __name__ == '__main__':
     transformDocument = TransformDocument()
-    srcLink = 'axle-env/workflowhub/raw_data/cwl_documents.json'
-    destLink = 'axle-env/workflowhub/transformed_data/transformed_workflow_cwl_documents.json'
+    srcLink = 'cwl_documents/workflowhub/raw_data/cwl_documents.json'
+    destLink = 'cwl_documents/workflowhub/transformed_data/transformed_workflow_cwl_documents.json'
     documents = transformDocument.readJson(srcLink)
     transformedDocuments = transformDocument.transformDocuments(documents)
     transformDocument.saveTransformedDocuments(transformedDocuments, destLink, overWrite=True)
