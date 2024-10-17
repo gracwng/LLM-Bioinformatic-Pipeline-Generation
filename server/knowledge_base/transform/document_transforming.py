@@ -63,17 +63,19 @@ class TransformDocument:
                     transformedDoc[key] = None
         return transformedDoc
 
-    def saveTransformedDocuments(self, documents, overWrite=False):
+    def saveTransformedDocuments(self, documents, destLink, overWrite=False):
         if overWrite:
-            with open('cwl_documents/transformed_data/cwl_documents_transformed.json', 'w') as f:
+            with open(destLink, 'w') as f:
                 json.dump(documents, f, indent=2)
-            print("Transformed documents saved to cwl_documents/transformed_data/transformed_cwl_documents.json")
+            print("Transformed documents saved to ", destLink)
         else:
             print("Permissions denied. Transformed documents not saved")
 
 if __name__ == '__main__':
     transformDocument = TransformDocument()
-    documents = transformDocument.readJson('cwl_documents/raw_data/cwl_documents.json')
+    srcLink = 'axle-env/workflowhub/raw_data/cwl_documents.json'
+    destLink = 'axle-env/workflowhub/transformed_data/transformed_workflow_cwl_documents.json'
+    documents = transformDocument.readJson(srcLink)
     transformedDocuments = transformDocument.transformDocuments(documents)
-    transformDocument.saveTransformedDocuments(transformedDocuments)
+    transformDocument.saveTransformedDocuments(transformedDocuments, destLink, overWrite=True)
     
