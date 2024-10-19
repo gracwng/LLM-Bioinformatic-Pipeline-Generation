@@ -29,6 +29,7 @@ cwl_schema = {
     "updatedAt": datetime.datetime
 }
 
+
 # for each document, we want to extract the fields from the cwl_schema and create a new document object with it
 class TransformDocument:
     def readJson(self, file_path):
@@ -65,7 +66,7 @@ class TransformDocument:
 
     def saveTransformedDocuments(self, documents, destLink, overWrite=False):
         # before saving, remove all duplicates
-        unique_documents = self.remove_duplicates_by_source(documents)
+        unique_documents = self.removeDuplicatesBySource(documents)
         if overWrite:
             with open(destLink, 'w') as f:
                 json.dump(unique_documents, f, indent=2)
@@ -73,7 +74,7 @@ class TransformDocument:
         else:
             print("Permissions denied. Transformed documents not saved")
     
-    def remove_duplicates_by_source(self, data):
+    def removeDuplicatesBySource(self, data):
         unique_sources = set()
         result = []
 

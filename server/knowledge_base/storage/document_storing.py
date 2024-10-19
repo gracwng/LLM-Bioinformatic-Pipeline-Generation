@@ -10,7 +10,7 @@ from .utils.atlas_client import AtlasClient
 # from server.knowledge_base import DocumentLoader
 from server.knowledge_base.load.config import raw_cwl_files_config
 from server.knowledge_base.storage.config import mongodb_raw_cwl_files_config
-# from server.knowledge_base.storage.document_storing import DocumentStorage
+
 class DocumentStorage:
 
     def __init__(self, source: str) -> None: 

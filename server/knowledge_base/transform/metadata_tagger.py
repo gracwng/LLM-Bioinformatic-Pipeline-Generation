@@ -4,17 +4,12 @@ from langchain_community.document_transformers.openai_functions import (
 )
 schema = {
     "properties": {
-        "movie_title": {"type": "string"},
-        "critic": {"type": "string"},
-        "tone": {"type": "string", "enum": ["positive", "negative"]},
-        "rating": {
-            "type": "integer",
-            "description": "The number of stars the critic rated the movie",
+        "description": {
+            "type": "string",
+            "description": "You are an expert in bioinformatics and workflow languages. Your task is to generate concise descriptions for data points containing Common Workflow Language (CWL) files or code.",
         },
     },
     "required": ["movie_title", "critic", "tone"],
 }
-
-# Must be an OpenAI model that supports functions (HELP)
 
 document_transformer = create_metadata_tagger(metadata_schema=schema, llm=llm)

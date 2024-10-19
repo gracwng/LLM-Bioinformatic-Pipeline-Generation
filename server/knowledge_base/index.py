@@ -15,6 +15,7 @@ def main(raw_cwl_files_config, mongodb_raw_cwl_files_config):
     docLoader = DocumentLoader('github')
 
     documents = docLoader.getDocuments(raw_cwl_files_config)
+    # documents = documents[:10]
 
     ''' Transform documents to fit MongoDB db schema'''
 
