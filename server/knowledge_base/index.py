@@ -2,6 +2,7 @@ from server.knowledge_base import DocumentLoader
 from server.knowledge_base.load.config import raw_cwl_files_config, raw_workflowhub_cwl_files_config
 from server.knowledge_base.storage.config import mongodb_raw_cwl_files_config
 from server.knowledge_base.storage.document_storing import DocumentStorage
+from server.knowledge_base.transform.document_transforming import TransformDocument
 
 '''
 Load documents from github, workflowhub, other sources

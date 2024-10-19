@@ -6,9 +6,12 @@ Transform data
 import json
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from langchain_core.documents import Document
 import datetime
-import getpass
-import os
+
+
+from server.knowledge_base.storage.config import mongodb_clean_cwl_files_config
+from server.knowledge_base.storage.document_storing import DocumentStorage
 
 cwl_schema = {
     "_id": ObjectId,
@@ -63,8 +66,44 @@ class TransformDocument:
                 else:
                     transformedDoc[key] = None
         return transformedDoc
+    
+    # this function takes the merged cwl doc objects and converts them to Langchain documents
+    def convertToLangchainDocument(self, document):
 
-    def saveTransformedDocuments(self, documents, destLink, overWrite=False):
+        content = document.get('content', '')
+        metadata = {
+            'source': document.get('source', ''),
+            'content': document.get('content', ''),
+            'embedding': document.get('embedding', ''),
+            'class': document.get('class', ''),
+            'inputs': document.get('inputs', ''),
+            'outputs': document.get('outputs', ''),
+            'baseCommand': document.get('baseCommand', ''),
+            'hints': document.get('hints', ''),
+            'cwlVersion': document.get('cwlVersion', ''),
+            'arguments': document.get('arguments', ''),
+            'requirements': document.get('requirements', ''),
+            'createdAt': document.get('createdAt', ''),
+            'updatedAt': document.get('updatedAt', ''),
+        }
+
+        return Document(page_content = content, metadata = metadata)
+    
+    # this function takes the merged cwl doc objects and converts them to Langchain documents
+    def convertToLangchainDocuments(self, documents):
+        langchain_documents = [self.convertToLangchainDocument(doc) for doc in documents]
+        return langchain_documents
+    
+    # this function takes langchain documents and converts them into json objects
+    def convertLangChainDocumentsToDict(self, documents):
+        newDocs = []
+        for doc in documents:
+            newDocs.append( {
+                'page_content': doc.page_content,
+                'metadata': doc.metadata
+            })
+        return newDocs
+    def saveTransformedDocumentsIntoJson(self, documents, destLink, overWrite=False):
         # before saving, remove all duplicates
         unique_documents = self.removeDuplicatesBySource(documents)
         if overWrite:
@@ -89,9 +128,10 @@ class TransformDocument:
     
 if __name__ == '__main__':
     transformDocument = TransformDocument()
-    srcLink = 'cwl_documents/workflowhub/raw_data/cwl_documents.json'
+    srcLink = 'cwl_documents/merged_cwl_documents.json'
     destLink = 'cwl_documents/workflowhub/transformed_data/transformed_workflow_cwl_documents.json'
     documents = transformDocument.readJson(srcLink)
-    transformedDocuments = transformDocument.transformDocuments(documents)
-    transformDocument.saveTransformedDocuments(transformedDocuments, destLink, overWrite=True)
+    transformedDocuments = transformDocument.convertToLangchainDocuments(documents)
+
+    # transformDocument.saveTransformedDocumentsIntoJson(transformedDocuments, destLink, overWrite=True)
     

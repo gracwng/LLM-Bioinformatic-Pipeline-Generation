@@ -40,8 +40,9 @@ class DocumentStorage:
     def storeDocumentsInMongoDB(self, documents, config):
         if self.source == 'github':
             json_data = [processDocument(doc) for doc in documents]
+            documents = json_data
         database, collection = self.initializeDatabase(config)
-        database.addDocuments(collection, json_data)
+        database.addDocuments(collection, documents)
         print(f"Documents stored in MongoDB Atlas collection: {collection}")
 
     # Initialize the MongoDB database
