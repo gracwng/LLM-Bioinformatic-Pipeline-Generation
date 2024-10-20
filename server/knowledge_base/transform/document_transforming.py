@@ -72,8 +72,8 @@ class TransformDocument:
 
         content = document.get('content', '')
         metadata = {
+            'description': document.get('description', ''),
             'source': document.get('source', ''),
-            'content': document.get('content', ''),
             'embedding': document.get('embedding', ''),
             'class': document.get('class', ''),
             'inputs': document.get('inputs', ''),
