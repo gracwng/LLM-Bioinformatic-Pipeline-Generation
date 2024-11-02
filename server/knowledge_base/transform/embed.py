@@ -1,15 +1,15 @@
 # given a json object within a json file, create embeddings for each object's page_content and description fields
 
 import json
+import os
 from server.knowledge_base.transform.document_transforming import TransformDocument
 from langchain_openai import OpenAIEmbeddings
-
-def readDocuments():
+from server.knowledge_base.storage.document_storing import DocumentStorage  # for storing documents in MongoDB  
+def readDocuments(srcLink):
     # read in documents from the enhanced_documents.json file
     transformDocument = TransformDocument()
-    srcLink = 'cwl_documents/documents_with_descriptions.json'
     documents = transformDocument.readJson(srcLink)
-    print("Documents have been read from 'enhanced_documents.json'")    
+    print(f"Documents have been read from '{srcLink}'")    
 
     return documents
 
@@ -20,7 +20,10 @@ def removeEmbeddingFields(documents):
     return documents
 
 def generateEmbeddings(documents):
-    embeddings_model = OpenAIEmbeddings()
+    embeddings_model = OpenAIEmbeddings(
+        model="text-embedding-3-large",
+        dimensions = 3072
+    )
 
     for doc in documents:
         if doc['page_content'] is not None:
@@ -30,27 +33,45 @@ def generateEmbeddings(documents):
     print("Embeddings have been generated for each document")
     pass
 
-def saveDocuments(documents):
+def saveDocuments(documents, dest):
      # Write the formatted documents to a JSON file
-    dest = 'cwl_documents/embedded_documents.json'
     with open(dest, 'w') as json_file:
         json.dump(documents, json_file, indent=2)
 
-    print("Enhanced documents have been saved to 'embedded_documents.json'")
+    print(f"Enhanced documents have been saved to {dest}")
     pass
 
-def main():
+def createEmbeddings():
     '''
     read the enhanced_documents json file
     for each object, remove the embedding field, create a page_content_embedding field, and a description_embedding field
     then generate embeddings for each of these fields
     save objects in new json file
     '''
-    documents = readDocuments()
+    srcLink = 'cwl_documents/documents_with_descriptions.json'
+    destLink = 'cwl_documents/embedded_documents.json'
+    documents = readDocuments(srcLink)
     documents = removeEmbeddingFields(documents)
     # documents = documents[:5]
     generateEmbeddings(documents)
-    saveDocuments(documents)
+    saveDocuments(documents, destLink)
+    pass
+
+# this function takes documents (array of doc objects) that contain embeddings of page_content and description into MongoDB database
+def addEmbeddingsToMongoDB():
+    srcLink = 'cwl_documents/embedded_documents.json'
+    documents = readDocuments(srcLink)
+    mongodb_cleaned_cwl_files_config = {
+        'MONGODB_URI': os.environ.get('MONGODB_URI'),
+        'DB_NAME': 'LLM-Bioinformatic-Pipeline-Generation',
+        'COLLECTION_NAME': 'Cleaned-CWL-Files'
+        }
+    documentStorage = DocumentStorage('github')
+    documentStorage.storeDocumentsInMongoDB(documents, mongodb_cleaned_cwl_files_config)
+
+
+def main():
+    addEmbeddingsToMongoDB()
     pass
 
 if __name__ == '__main__':

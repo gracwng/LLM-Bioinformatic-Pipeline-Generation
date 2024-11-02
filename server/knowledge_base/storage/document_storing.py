@@ -37,7 +37,8 @@ class DocumentStorage:
             print(f"Documents saved to {json_file_path}")
             pass
 
-    def storeDocumentsInMongoDB(self, documents, config):
+    # stores raw documents into mongodb
+    def storeRawDocumentsInMongoDB(self, documents, config):
         if self.source == 'github':
             json_data = [processDocument(doc) for doc in documents]
             documents = json_data
@@ -45,6 +46,12 @@ class DocumentStorage:
         database.addDocuments(collection, documents)
         print(f"Documents stored in MongoDB Atlas collection: {collection}")
 
+    # stores transformed documents in the form of a json object into mongodb. documents should be a list of objects
+    def storeDocumentsInMongoDB(self, documents, config):
+        database, collection = self.initializeDatabase(config)
+        database.addDocuments(collection, documents)
+        print(f"Documents stored in MongoDB Atlas collection: {collection}")
+        
     # Initialize the MongoDB database
     def initializeDatabase(self, config):
         '''Expected configuration example:

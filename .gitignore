@@ -2,3 +2,5 @@
 server/knowledge_base/load/process_workflowhub_data.py
 server/knowledge_base/load/workflow_github_configs.json
 cwl_documents/workflowhub/raw_data/no_documents.json
+axle-env-new
+cwl_documents/embedded_documents.json
