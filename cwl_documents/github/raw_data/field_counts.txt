@@ -1,0 +1,90 @@
+Field,Count
+path,677
+sha,677
+source,677
+content,677
+cwl_class,675
+cwl_id,21
+cwl_inputs,675
+cwl_outputs,675
+cwl_hints,463
+cwl_cwlVersion,675
+cwl_baseCommand,475
+cwl_arguments,87
+cwl_$namespaces,590
+cwl_$schemas,583
+cwl_requirements,270
+cwl_doc,624
+cwl_stdout,181
+cwl_s:name,312
+cwl_s:license,341
+cwl_s:creator,335
+cwl_label,446
+cwl_s:downloadUrl,271
+cwl_s:codeRepository,322
+cwl_s:about,136
+cwl_stderr,109
+cwl_s:alternateName,178
+cwl_s:author,213
+cwl_successCodes,4
+cwl_expression,11
+cwl_s:isPartOf,274
+cwl_s:mainEntity,59
+cwl_steps,188
+cwl_requirements_error,320
+yaml_error,2
+cwl_sd:metadata,28
+cwl_sd:upstream,95
+error,9
+cwl_sd:serviceTag,2
+cwl_stdin,2
+cwl_description,1
+
+Here's a description of each field in the database schema:
+
+1. path (677): File path of the CWL document
+2. sha (677): SHA hash of the document, for version control on GitHub
+3. source (677): Source URL or location of the CWL document
+4. content (677): Full content of the CWL document
+
+CWL-specific fields:
+5. cwl_class (675): Type of CWL object (e.g., CommandLineTool, Workflow)
+6. cwl_id (21): Identifier for the CWL object
+7. cwl_inputs (675): Input parameters for the tool or workflow
+8. cwl_outputs (675): Output parameters for the tool or workflow
+9. cwl_hints (463): Optional runtime environment suggestions
+10. cwl_cwlVersion (675): Version of CWL used
+11. cwl_baseCommand (475): The command line to execute
+12. cwl_arguments (87): Command line arguments
+13. cwl_$namespaces (590): Namespace declarations
+14. cwl_$schemas (583): Schema declarations
+15. cwl_requirements (270): Required runtime environment
+16. cwl_doc (624): Documentation or description
+17. cwl_stdout (181): Standard output redirection
+18. cwl_stderr (109): Standard error redirection
+19. cwl_steps (188): Steps in a workflow
+
+Semantic fields (schema.org):
+20. cwl_s:name (312): Name of the tool or workflow
+21. cwl_s:license (341): License information
+22. cwl_s:creator (335): Creator of the tool or workflow
+23. cwl_label (446): Human-readable label
+24. cwl_s:downloadUrl (271): URL to download the tool
+25. cwl_s:codeRepository (322): Code repository URL
+26. cwl_s:about (136): Description of the tool or workflow
+27. cwl_s:alternateName (178): Alternative name
+28. cwl_s:author (213): Author information
+29. cwl_s:isPartOf (274): Indicates if it's part of a larger project
+30. cwl_s:mainEntity (59): Main entity described
+
+Other fields:
+31. cwl_successCodes (4): Successful exit codes
+32. cwl_expression (11): CWL expressions
+33. cwl_requirements_error (320): Errors in requirements specification
+34. yaml_error (2): YAML parsing errors
+35. cwl_sd:metadata (28): Additional metadata
+36. cwl_sd:upstream (95): Upstream dependencies
+37. error (9): General error field
+38. cwl_sd:serviceTag (2): Service tag information
+39. cwl_stdin (2): Standard input redirection
+40. cwl_description (1): Description field
