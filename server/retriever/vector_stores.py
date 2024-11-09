@@ -10,7 +10,6 @@ This file contains the vector store retriever functions
 Idea: convert the page content and description embedding vector store into a retriever
 '''
 
-
 load_dotenv()  # This line is crucial
 # Connect to your Atlas deployment
 uri = os.environ.get('MONGODB_URI')
@@ -42,7 +41,11 @@ def vectorStoreAsRetriever(embedding_key, text_key, search_type, k, fetch_k, lam
     )
 
     return retriever
-
+def multiQueryRetriever(vector):
+    # retriever_from_llm = MultiQueryRetriever.from_llm(
+    # retriever=vectordb.as_retriever(), llm=llm
+    #     )
+    pass
 def getRetrievers():
     search_type = "mmr"
     k = 5
@@ -53,20 +56,33 @@ def getRetrievers():
     vector_page_content_index = "vector_page_content_index"
     description_embedding_key="description_embedding"
     description_text_key= "description"
+    page_content_embedding_key="page_content_embedding"
+    page_content_text_key= "page_content"
     descriptionRetriever = vectorStoreAsRetriever(description_embedding_key, description_text_key, search_type, k, fetch_k, lambda_mult, relevance_score_fn, vector_description_index)
-    # pageContentRetriever = vectorStoreAsRetriever(search_type, k, fetch_k, lambda_mult, relevance_score_fn, vector_page_content_index)
-    return descriptionRetriever
-# pageContentRetriever
-    pass
+    pageContentRetriever = vectorStoreAsRetriever(page_content_embedding_key, page_content_text_key, search_type, k, fetch_k, lambda_mult, relevance_score_fn, vector_page_content_index)
+    return descriptionRetriever, pageContentRetriever
 
-def main():
+def document_to_dict(doc):
+    return {
+        "page_content": doc.page_content,
+        "metadata": doc.metadata
+    }
+
+def test():
     userQuery = "Can you generate a CWL workflow for variant calling from whole genome sequencing data?"
     descriptionRetriever = getRetrievers()
     retrievedDocs = descriptionRetriever.invoke(userQuery, k = 2)
-    print(len(retrievedDocs))
-    print(retrievedDocs[0].page_content)
 
+    # Convert Document objects to dictionaries
+    serializable_docs = [document_to_dict(doc) for doc in retrievedDocs]
     
+    # Save the flattened array to a new JSON file
+    with open('retrievedDocs.json', 'w') as file:
+        json.dump(serializable_docs, file, indent=2)
+
+
+def main():
+    return getRetrievers()
 
 if __name__ == '__main__':
     main()
