@@ -2,29 +2,76 @@ import re
 import yaml
 from datetime import datetime
 from langchain.schema import AIMessage
-
-import yaml
 from ruamel.yaml import YAML
-import re
-from datetime import datetime
+from cwltool.load_tool import load_tool
 
-def create_cwl_file(yaml_content):
-    # First, let's validate that we have valid CWL content
-    if not yaml_content.strip().startswith("cwlVersion:"):
+CWL_TEMPLATE = """
+#!/usr/bin/env cwl-runner
+
+cwlVersion: v1.0
+class: Workflow
+label: {label}
+doc: |
+  {doc}
+
+inputs:
+{inputs}
+
+outputs:
+{outputs}
+
+steps:
+{steps}
+"""
+
+def extract_info(generated_code):
+    label = re.search(r'label:\s*(.*)', generated_code)
+    doc = re.search(r'doc:\s*\|(.*?)(?=\n\w)', generated_code, re.DOTALL)
+    inputs = re.search(r'inputs:(.*?)(?=\noutputs:)', generated_code, re.DOTALL)
+    outputs = re.search(r'outputs:(.*?)(?=\nsteps:)', generated_code, re.DOTALL)
+    steps = re.search(r'steps:(.*)', generated_code, re.DOTALL)
+
+    return {
+        'label': label.group(1) if label else '',
+        'doc': doc.group(1).strip() if doc else '',
+        'inputs': inputs.group(1).strip() if inputs else '',
+        'outputs': outputs.group(1).strip() if outputs else '',
+        'steps': steps.group(1).strip() if steps else ''
+    }
+
+def generate_cwl(generated_code):
+    info = extract_info(generated_code)
+    
+    cwl_content = CWL_TEMPLATE.format(
+        label=info['label'],
+        doc=info['doc'],
+        inputs=info['inputs'],
+        outputs=info['outputs'],
+        steps=info['steps']
+    )
+
+    return cwl_content
+
+def validate_cwl(cwl_content):
+    try:
+        load_tool(cwl_content)
+        return True
+    except Exception as e:
+        print(f"CWL validation error: {str(e)}")
+        return False
+
+def create_cwl_file(cwl_content):
+    if not cwl_content.strip().startswith("cwlVersion:"):
         raise ValueError("The provided content does not appear to be a valid CWL file.")
 
-    # Use ruamel.yaml for parsing, as it's more lenient with CWL-specific syntax
     yaml = YAML()
     
     try:
-        # Parse the YAML content
-        cwl_dict = yaml.load(yaml_content)
+        cwl_dict = yaml.load(cwl_content)
         
-        # Create a unique filename with a timestamp
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"cwl_file_{timestamp}.cwl"
         
-        # Write the CWL content to a file
         with open(filename, 'w') as file:
             yaml.dump(cwl_dict, file)
         
@@ -32,18 +79,46 @@ def create_cwl_file(yaml_content):
     except Exception as e:
         print(f"Error parsing or writing CWL file: {str(e)}")
         print("Raw YAML content:")
-        print(yaml_content)
+        print(cwl_content)
         return None
+
+def parse_llm_output(response):
+    if isinstance(response, AIMessage):
+        content = response.content
+    elif isinstance(response, str):
+        content = response
+    else:
+        content = str(response)  # Fallback to string representation
+
+    yaml_match = re.search(r'```yaml\n(.*?)\n```', content, re.DOTALL)
+    extracted_yaml = yaml_match.group(1) if yaml_match else None
+    return extracted_yaml
+
+def parse(generated_code):
+    # Parse the LLM output
+    extracted_yaml = parse_llm_output(generated_code)
     
-def create_cwl_file(yaml_content):
-    # Convert the extracted YAML content into Python dictionary
-    cwl_dict = yaml.safe_load(yaml_content)
+    if not extracted_yaml:
+        print("Failed to extract YAML content from LLM output")
+        return
+
+    # Generate CWL content
+    cwl_content = generate_cwl(extracted_yaml)
     
-    # Create a filename with a timestamp
-    filename = f'variant_calling_workflow_{datetime.now().strftime("%Y%m%d_%H%M%S")}.cwl'
-    
-    # Write the YAML content to a file
-    with open(filename, 'w') as file:
-        yaml.dump(cwl_dict, file, default_flow_style=False)
-    
-    return filename
+    # Validate CWL content
+    if validate_cwl(cwl_content):
+        # Create CWL file
+        filename = create_cwl_file(cwl_content)
+        if filename:
+            print(f"Valid CWL file generated: {filename}")
+        else:
+            print("Failed to create CWL file")
+    else:
+        print("Failed to generate a valid CWL file")
+
+# # Example usage
+# generated_code = """
+# Your generated code here
+# """
+
+# main(generated_code)
