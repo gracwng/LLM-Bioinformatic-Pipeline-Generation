@@ -118,83 +118,29 @@ def main():
             Ensure your explanation is clear, concise, and accessible to users with basic knowledge of CWL and bioinformatics workflows.
         """
     
-        raw_response_content = "Based on the provided context, here is a CWL file for the VDJtools Calc Spectratype workflow. This file includes the necessary inputs, outputs, and requirements for running the tool using Docker.\n\n```yaml\ncwlVersion: v1.2\nclass: CommandLineTool\n\nhints:\n  ResourceRequirement:\n    ramMin: 3814\n    coresMin: 2\n  DockerRequirement:\n    dockerPull: yyasumizu/vdjtools\n\nbaseCommand: [\"vdjtools\", \"CalcSpectratype\"]\n\ndoc: |\n  The VDJtools Calc Spectratype workflow is designed to analyze immune repertoire sequencing data\n  by calculating the spectratype, which is a histogram of read counts based on CDR3 nucleotide length.\n  It takes as input a VDJ file along with optional parameters for unweighted and amino acid analysis,\n  and produces several output files, including spectratype data in various formats.\n\ninputs:\n  vdj_file:\n    type: File\n    inputBinding:\n      position: 1\n    label: \"VDJ File\"\n    doc: \"The input VDJ file containing immune repertoire sequencing data.\"\n\n  unweighted:\n    type: boolean?\n    inputBinding:\n      position: 2\n      prefix: \"--unweighted\"\n    label: \"Unweighted Analysis\"\n    doc: \"Optional parameter to perform unweighted analysis.\"\n\n  amino_acid:\n    type: boolean?\n    inputBinding:\n      position: 3\n      prefix: \"--amino-acid\"\n    label: \"Amino Acid Analysis\"\n    doc: \"Optional parameter to perform amino acid analysis.\"\n\noutputs:\n  insert_wt_txt:\n    type: File\n    outputBinding:\n      glob: \"*.insert.wt.txt\"\n    label: \"Insert Weighted Spectratype\"\n    doc: \"Output file containing insert weighted spectratype data.\"\n\n  ndn_wt_txt:\n    type: File\n    outputBinding:\n      glob: \"*.ndn.wt.txt\"\n    label: \"NDN Weighted Spectratype\"\n    doc: \"Output file containing NDN weighted spectratype data.\"\n\n  aa_wt_txt:\n    type: File\n    outputBinding:\n      glob: \"*.aa.wt.txt\"\n    label: \"Amino Acid Weighted Spectratype\"\n    doc: \"Output file containing amino acid weighted spectratype data.\"\n\n  nt_wt_txt:\n    type: File\n    outputBinding:\n      glob: \"*.nt.wt.txt\"\n    label: \"Nucleotide Weighted Spectratype\"\n    doc: \"Output file containing nucleotide weighted spectratype data.\"\n\nrequirements:\n  InlineJavascriptRequirement: {}\n\n```\n\n### Explanation and Assumptions:\n\n1. **CWL Version**: The file uses CWL version 1.2, which is the most recent stable version as of the training data.\n\n2. **Docker Requirement**: The tool is executed within a Docker container (`yyasumizu/vdjtools`) to ensure consistent execution across different environments.\n\n3. **Resource Requirements**: The tool requires a minimum of 2 CPU cores and 3814 MB of RAM, as specified in the context.\n\n4. **Inputs**:\n   - `vdj_file`: The primary input file containing the immune repertoire sequencing data.\n   - `unweighted` and `amino_acid`: Optional boolean parameters to control the type of analysis performed.\n\n5. **Outputs**: The workflow produces several output files in different formats, each representing a different aspect of the spectratype analysis.\n\n6. **Command Line Bindings**: The `baseCommand` and `inputBinding` sections are structured to correctly pass the inputs to the command line tool.\n\n7. **Assumptions**: It is assumed that the output files will have specific extensions (`.insert.wt.txt`, `.ndn.wt.txt`, etc.) based on the context provided. If the actual tool behavior differs, these patterns may need adjustment."
+        # raw_response_content = "Based on the provided context, here is a CWL file for the VDJtools Calc Spectratype workflow. This file includes the necessary inputs, outputs, and requirements for running the tool using Docker.\n\n```yaml\ncwlVersion: v1.2\nclass: CommandLineTool\n\nhints:\n  ResourceRequirement:\n    ramMin: 3814\n    coresMin: 2\n  DockerRequirement:\n    dockerPull: yyasumizu/vdjtools\n\nbaseCommand: [\"vdjtools\", \"CalcSpectratype\"]\n\ndoc: |\n  The VDJtools Calc Spectratype workflow is designed to analyze immune repertoire sequencing data\n  by calculating the spectratype, which is a histogram of read counts based on CDR3 nucleotide length.\n  It takes as input a VDJ file along with optional parameters for unweighted and amino acid analysis,\n  and produces several output files, including spectratype data in various formats.\n\ninputs:\n  vdj_file:\n    type: File\n    inputBinding:\n      position: 1\n    label: \"VDJ File\"\n    doc: \"The input VDJ file containing immune repertoire sequencing data.\"\n\n  unweighted:\n    type: boolean?\n    inputBinding:\n      position: 2\n      prefix: \"--unweighted\"\n    label: \"Unweighted Analysis\"\n    doc: \"Optional parameter to perform unweighted analysis.\"\n\n  amino_acid:\n    type: boolean?\n    inputBinding:\n      position: 3\n      prefix: \"--amino-acid\"\n    label: \"Amino Acid Analysis\"\n    doc: \"Optional parameter to perform amino acid analysis.\"\n\noutputs:\n  insert_wt_txt:\n    type: File\n    outputBinding:\n      glob: \"*.insert.wt.txt\"\n    label: \"Insert Weighted Spectratype\"\n    doc: \"Output file containing insert weighted spectratype data.\"\n\n  ndn_wt_txt:\n    type: File\n    outputBinding:\n      glob: \"*.ndn.wt.txt\"\n    label: \"NDN Weighted Spectratype\"\n    doc: \"Output file containing NDN weighted spectratype data.\"\n\n  aa_wt_txt:\n    type: File\n    outputBinding:\n      glob: \"*.aa.wt.txt\"\n    label: \"Amino Acid Weighted Spectratype\"\n    doc: \"Output file containing amino acid weighted spectratype data.\"\n\n  nt_wt_txt:\n    type: File\n    outputBinding:\n      glob: \"*.nt.wt.txt\"\n    label: \"Nucleotide Weighted Spectratype\"\n    doc: \"Output file containing nucleotide weighted spectratype data.\"\n\nrequirements:\n  InlineJavascriptRequirement: {}\n\n```\n\n### Explanation and Assumptions:\n\n1. **CWL Version**: The file uses CWL version 1.2, which is the most recent stable version as of the training data.\n\n2. **Docker Requirement**: The tool is executed within a Docker container (`yyasumizu/vdjtools`) to ensure consistent execution across different environments.\n\n3. **Resource Requirements**: The tool requires a minimum of 2 CPU cores and 3814 MB of RAM, as specified in the context.\n\n4. **Inputs**:\n   - `vdj_file`: The primary input file containing the immune repertoire sequencing data.\n   - `unweighted` and `amino_acid`: Optional boolean parameters to control the type of analysis performed.\n\n5. **Outputs**: The workflow produces several output files in different formats, each representing a different aspect of the spectratype analysis.\n\n6. **Command Line Bindings**: The `baseCommand` and `inputBinding` sections are structured to correctly pass the inputs to the command line tool.\n\n7. **Assumptions**: It is assumed that the output files will have specific extensions (`.insert.wt.txt`, `.ndn.wt.txt`, etc.) based on the context provided. If the actual tool behavior differs, these patterns may need adjustment."
 
         parsing_query = raw_response_content
-        # parsing_raw_response = model.invoke([SystemMessage(content=parsing_system_prompt),
-        #                         HumanMessage(content=parsing_query)])
-        # # Parse the YAML content
-        # parsed_cwl = parser.parse(parsing_raw_response.content)
-        # print(parsed_cwl)
-        # stored_filename = store_response(parsing_raw_response)
-        # print(f"Response stored in: {stored_filename}")
-        # Generate a response
-        try:
-            raw_response = model.invoke([SystemMessage(content=system_prompt_fmt), HumanMessage(content=userQuery)])
-            raw_response_content = raw_response.content
-        except Exception as e:
-            logging.error(f"Error during generation: {e}")
-            with open(error_log_file, "a") as err_file:
-                err_file.write(f"Error during generation: {e}\n")
-            return  # Skip to the next iteration or exit
 
-        # Define parsing system prompt
-
-        # Parse response
-        try:
-            parsing_query = raw_response_content
-            parsing_raw_response = model.invoke([SystemMessage(content=parsing_system_prompt), HumanMessage(content=parsing_query)])
-            parsed_cwl = parser.parse(parsing_raw_response.content)
-            save_result(result_file, parsing_raw_response.content)
-        except Exception as e:
-            logging.error(f"Error during parsing: {e}")
-            with open(error_log_file, "a") as err_file:
-                err_file.write(f"Error during parsing: {e}\n")
-            return  # Skip to the next iteration or exit
+        # parse response
+        parsing_query = raw_response_content
+        parsing_raw_response = model.invoke([SystemMessage(content=parsing_system_prompt), HumanMessage(content=parsing_query)])
+        parsed_cwl = parser.parse(parsing_raw_response.content)
+        save_result(result_file, parsing_raw_response.content)
 
         # Print the parsed CWL
         print(parsed_cwl)
 
     except Exception as e:
-        logging.critical(f"Unexpected error: {e}", exc_info=True)
+        logging.error(f"Error during generation: {e}")
         with open(error_log_file, "a") as err_file:
-            err_file.write(f"Unexpected error: {e}\n")
+            err_file.write(f"Error during generation: {e}\n")
+        return  # Skip to the next iteration or exit
 
-
-if __name__ == "__main__":
-    main()
-
-
-
-import json
-from datetime import datetime
-from langchain.schema import AIMessage
-
-def store_response(response):
-    # Convert the response to a dictionary
-    if isinstance(response, AIMessage):
-        response_dict = {
-            "content": response.content,
-            "additional_kwargs": response.additional_kwargs,
-            "type": "AIMessage"
-        }
-    else:
-        response_dict = {
-            "content": str(response),
-            "type": str(type(response))
-        }
-
-    # Add timestamp
-    response_dict["timestamp"] = datetime.now().isoformat()
-
-    # Create a filename with timestamp
-    filename = f"model_response_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-
-    # Store the response in a JSON file
-    with open(filename, 'w') as json_file:
-        json.dump(response_dict, json_file, indent=4)
-
-    return filename
+    # except Exception as e:
+    #     logging.critical(f"Unexpected error: {e}", exc_info=True)
+    #     with open(error_log_file, "a") as err_file:
+    #         err_file.write(f"Unexpected error: {e}\n")
 
 if __name__ == "__main__":
     main()
