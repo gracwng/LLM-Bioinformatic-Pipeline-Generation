@@ -24,10 +24,13 @@ error_log_file = "error_log.txt"
 result_file = "parsed_results.yaml"
 
 
-def save_result(filename, content):
+def save_result(filename, raw_content, parsed_content):
     with open(filename, "a") as f:
-        f.write(content + "\n\n")
-
+        f.write("Raw Response Content:\n")
+        f.write(raw_content)
+        f.write("\n\nParsed CWL:\n")
+        f.write(parsed_content)
+        f.write("\n\n" + "-"*50 + "\n\n")
 
 def getRetrievers():
     retrievers = RetrieverBuilder()
@@ -73,15 +76,17 @@ def main():
             Remember, your goal is to create a CWL file that is not only syntactically correct but also practical and ready for use in a bioinformatics pipeline. Please be thorough and detailed in your response."""
             
         # Define a question
-        # userQuery = "Can you generate a CWL workflow for variant calling from whole genome sequencing data?"
+        userQuery = "Can you generate a CWL workflow for variant calling from whole genome sequencing data?"
         # userQuery = "help me generate a Common Workflow Language (CWL) tool implements the Genome Analysis Toolkit (GATK) function \"ApplyBQSR,\" which is used for base quality score recalibration in genomic data processing. It takes as input a BAM file, a base recalibration file, and various optional parameters, and produces a recalibrated BAM file along with optional index and VCF outputs. Notable features include support for multiple command-line options for fine-tuning the recalibration process, such as output indexing, read filtering, and quality score preservation."
-        userQuery = "help me write a cwl file that fufills this: The VDJtools Calc Spectratype workflow is designed to analyze immune repertoire sequencing data by calculating the spectratype, which is a histogram of read counts based on CDR3 nucleotide length. It takes as input a VDJ file along with optional parameters for unweighted and amino acid analysis, and produces several output files, including spectratype data in various formats (e.g., .insert.wt.txt, .ndn.wt.txt, .aa.wt.txt, .nt.wt.txt). Notably, this tool leverages Docker for consistent execution and requires a minimum of 2 CPU cores and 3814 MB of RAM"    # Retrieve relevant documents
+        # userQuery = "help me write a cwl file that fufills this: The VDJtools Calc Spectratype workflow is designed to analyze immune repertoire sequencing data by calculating the spectratype, which is a histogram of read counts based on CDR3 nucleotide length. It takes as input a VDJ file along with optional parameters for unweighted and amino acid analysis, and produces several output files, including spectratype data in various formats (e.g., .insert.wt.txt, .ndn.wt.txt, .aa.wt.txt, .nt.wt.txt). Notably, this tool leverages Docker for consistent execution and requires a minimum of 2 CPU cores and 3814 MB of RAM"    # Retrieve relevant documents
+        # userQuery = "Help me create a CWL file for the VDJtools Calc Spectratype workflow with the following specifications: Input: A VDJ file (required) Optional parameters for unweighted analysis and amino acid analysis Output: Spectratype data files in various formats. Docker requirement: Use a Docker container for consistent execution Resource requirements: Minimum 2 CPU cores Minimum 3814 MB of RAM Tool description: The workflow analyzes immune repertoire sequencing data It calculates the spectratype, which is a histogram of read counts based on CDR3 nucleotide length Please provide the CWL file structure, including the necessary sections for inputs, outputs, Docker requirements, resource requirements, and any other relevant components for this workflow"
+        # userQuery = "Please create a Common Workflow Language (CWL) tool description for the Genome Analysis Toolkit (GATK) function 'ApplyBQSR'. This tool is used for base quality score recalibration in genomic data processing. Include the following specifications: Inputs: Required: BAM file, base recalibration file Optional: Various parameters for fine-tuning the recalibration process Outputs: Primary: Recalibrated BAM file Optional: Index file, VCF output Command-line options: Output indexing Read filtering Quality score preservation Requirements: Docker container for GATK Resource requirements (CPU, memory) Metadata: Tool description CWL version Author information Please provide the complete CWL file in YAML format, ensuring it follows best practices for CWL tool descriptions."
         retriever = getRetrievers()
         docs = retriever.invoke(userQuery)
-
+        docs = docs[:3]  # Limit the number of retrieved documents
+        print("docs", len(docs))
         # Combine the documents into a single string
         format_docs = "\n\n".join(doc.page_content for doc in docs)
-
         # Populate the system prompt with the retrieved context
         system_prompt_fmt = system_prompt.format(context=format_docs)
 
@@ -121,15 +126,18 @@ def main():
         # raw_response_content = "Based on the provided context, here is a CWL file for the VDJtools Calc Spectratype workflow. This file includes the necessary inputs, outputs, and requirements for running the tool using Docker.\n\n```yaml\ncwlVersion: v1.2\nclass: CommandLineTool\n\nhints:\n  ResourceRequirement:\n    ramMin: 3814\n    coresMin: 2\n  DockerRequirement:\n    dockerPull: yyasumizu/vdjtools\n\nbaseCommand: [\"vdjtools\", \"CalcSpectratype\"]\n\ndoc: |\n  The VDJtools Calc Spectratype workflow is designed to analyze immune repertoire sequencing data\n  by calculating the spectratype, which is a histogram of read counts based on CDR3 nucleotide length.\n  It takes as input a VDJ file along with optional parameters for unweighted and amino acid analysis,\n  and produces several output files, including spectratype data in various formats.\n\ninputs:\n  vdj_file:\n    type: File\n    inputBinding:\n      position: 1\n    label: \"VDJ File\"\n    doc: \"The input VDJ file containing immune repertoire sequencing data.\"\n\n  unweighted:\n    type: boolean?\n    inputBinding:\n      position: 2\n      prefix: \"--unweighted\"\n    label: \"Unweighted Analysis\"\n    doc: \"Optional parameter to perform unweighted analysis.\"\n\n  amino_acid:\n    type: boolean?\n    inputBinding:\n      position: 3\n      prefix: \"--amino-acid\"\n    label: \"Amino Acid Analysis\"\n    doc: \"Optional parameter to perform amino acid analysis.\"\n\noutputs:\n  insert_wt_txt:\n    type: File\n    outputBinding:\n      glob: \"*.insert.wt.txt\"\n    label: \"Insert Weighted Spectratype\"\n    doc: \"Output file containing insert weighted spectratype data.\"\n\n  ndn_wt_txt:\n    type: File\n    outputBinding:\n      glob: \"*.ndn.wt.txt\"\n    label: \"NDN Weighted Spectratype\"\n    doc: \"Output file containing NDN weighted spectratype data.\"\n\n  aa_wt_txt:\n    type: File\n    outputBinding:\n      glob: \"*.aa.wt.txt\"\n    label: \"Amino Acid Weighted Spectratype\"\n    doc: \"Output file containing amino acid weighted spectratype data.\"\n\n  nt_wt_txt:\n    type: File\n    outputBinding:\n      glob: \"*.nt.wt.txt\"\n    label: \"Nucleotide Weighted Spectratype\"\n    doc: \"Output file containing nucleotide weighted spectratype data.\"\n\nrequirements:\n  InlineJavascriptRequirement: {}\n\n```\n\n### Explanation and Assumptions:\n\n1. **CWL Version**: The file uses CWL version 1.2, which is the most recent stable version as of the training data.\n\n2. **Docker Requirement**: The tool is executed within a Docker container (`yyasumizu/vdjtools`) to ensure consistent execution across different environments.\n\n3. **Resource Requirements**: The tool requires a minimum of 2 CPU cores and 3814 MB of RAM, as specified in the context.\n\n4. **Inputs**:\n   - `vdj_file`: The primary input file containing the immune repertoire sequencing data.\n   - `unweighted` and `amino_acid`: Optional boolean parameters to control the type of analysis performed.\n\n5. **Outputs**: The workflow produces several output files in different formats, each representing a different aspect of the spectratype analysis.\n\n6. **Command Line Bindings**: The `baseCommand` and `inputBinding` sections are structured to correctly pass the inputs to the command line tool.\n\n7. **Assumptions**: It is assumed that the output files will have specific extensions (`.insert.wt.txt`, `.ndn.wt.txt`, etc.) based on the context provided. If the actual tool behavior differs, these patterns may need adjustment."
 
         parsing_query = raw_response_content
+        print("Response")
+        print(parsing_query)
 
+        print("end of response")
         # parse response
         parsing_query = raw_response_content
-        parsing_raw_response = model.invoke([SystemMessage(content=parsing_system_prompt), HumanMessage(content=parsing_query)])
-        parsed_cwl = parser.parse(parsing_raw_response.content)
-        save_result(result_file, parsing_raw_response.content)
+        # parsing_raw_response = model.invoke([SystemMessage(content=parsing_system_prompt), HumanMessage(content=parsing_query)])
+        parsed_cwl = parser.parse_with_prompt(parsing_query, parsing_system_prompt)
+        # save_result(result_file, str(parsed_cwl))
 
         # Print the parsed CWL
-        print(parsed_cwl)
+        # print(parsed_cwl)
 
     except Exception as e:
         logging.error(f"Error during generation: {e}")

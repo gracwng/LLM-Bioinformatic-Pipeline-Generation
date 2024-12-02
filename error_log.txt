@@ -1125,3 +1125,1075 @@ The CWL file defines a CommandLineTool named "VDJtools Calc Spectratype" used fo
 cwl_object
   Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...g/licenses/LICENSE-2.0'}, input_type=dict]
     For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: SSL handshake failed: dev-shard-00-01.rm7ss.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1006) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: dev-shard-00-02.rm7ss.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1006) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: dev-shard-00-00.rm7ss.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1006) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 674bd2ad34bb437ef51e1bf5, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('dev-shard-00-00.rm7ss.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: dev-shard-00-00.rm7ss.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1006) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('dev-shard-00-01.rm7ss.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: dev-shard-00-01.rm7ss.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1006) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('dev-shard-00-02.rm7ss.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: dev-shard-00-02.rm7ss.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1006) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+``` 
+
+In this CWL file:
+- The tool calculates the spectratype based on CDR3 nucleotide length from a VDJ file.
+- It takes optional parameters for unweighted and amino acid analysis.
+- The tool produces output files in various formats: .insert.wt.txt, .ndn.wt.txt, .aa.wt.txt, .nt.wt.txt.
+- Docker is used for consistent execution.
+- The tool requires a minimum of 2 CPU cores and 3814 MB of RAM for execution.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ls', 'CalcSpectratype']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length"
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+s:creator:
+  - class: s:Organization
+    s:legalName: "Cincinnati Children's Hospital Medical Center"
+    s:location:
+      - class: s:PostalAddress
+        s:addressCountry: "USA"
+        s:addressLocality: "Cincinnati"
+        s:addressRegion: "OH. Got: while scanning a quoted scalar
+  in "<unicode string>", line 76, column 26:
+            s:addressRegion: "OH
+                             ^
+found unexpected end of stream
+  in "<unicode string>", line 76, column 29:
+            s:addressRegion: "OH
+                                ^
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 44470 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 44470 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 18408 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 18640 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length"
+
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+
+s:creator:
+- class: s:Organization
+  s:legalName: "Cincinnati Children's Hospital Medical Center"
+  s:location:
+  - class: s:PostalAddress
+    s:addressCountry: "USA"
+    s:addressLocality: "Cincinnati"
+    s:addressRegion: "OH"
+    s:postalCode: "45229"
+    s:streetAddress: "3333 Burnet Ave"
+    s:telephone: "+1(513)636-4200"
+  s:logo: "https://www.cincinnatichildrens.org/-/media/cincinnati%20childrens/global%20shared/childrens-logo-new.png"
+  s:department:
+  - class: s:Organization
+    s:legalName: "Allergy and Immunology"
+    s:department:
+    - class: s:Organization
+      s:legalName: "Barski Research Lab"
+      s:member:
+      - class: s:Person
+        s:name: Michael Kotliar
+        s:email: mailto:misha.kotliar@gmail.com
+        s:sameAs:
+        - id: http://orcid.org/0000-0002-6486-3898
+
+doc: |
+  VDJtools is an open-source Java/Groovy-based framework designed to facilitate analysis of
+  immune repertoire sequencing (RepSeq) data. VDJtools computes a wide set of statistics and
+  is able to perform various forms of cross-sample analysis. Both comprehensive tabular output
+  and publication-ready plots are provided.
+  
+  Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length. The
+  spectratype is useful to detect pathological and highly clonal repertoires, as the spectratype
+  of non-expanded T- and B-cells has a symmetric gaussian-like distribution.
+```
+
+In this CWL file, I have defined the VDJtools Calc Spectratype workflow with inputs for unweighted analysis, amino acid analysis, VDJ file, and output prefix. The outputs include spectratype data files in various formats. The Docker requirement specifies the Docker image to be used, and the resource requirements ensure a minimum of 2 CPU cores and 3814 MB of RAM. The tool description provides an overview of the workflow and its purpose.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...n-like distribution.\n'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 33689 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+cwlVersion: v1.0
+class: CommandLineTool
+id: gatk-ApplyBQSR
+label: GATK ApplyBQSR - Base Quality Score Recalibration
+doc: |
+  This Common Workflow Language (CWL) tool implements the Genome Analysis Toolkit (GATK) function 'ApplyBQSR', which is used for base quality score recalibration in genomic data processing.
+
+hints:
+  DockerRequirement:
+    dockerPull: quay.io/biocontainers/gatk:latest
+requirements:
+  ResourceRequirement:
+    coresMin: 1
+    ramMin: 2048
+
+inputs:
+  BAMFile:
+    type: File
+    secondaryFiles: .bai
+    inputBinding:
+      position: 1
+      prefix: "-I"
+    doc: "Input BAM file for recalibration"
+
+  BaseRecalFile:
+    type: File
+    inputBinding:
+      position: 2
+      prefix: "--bqsr"
+    doc: "Base recalibration file"
+
+  Parameters:
+    type: string?
+    inputBinding:
+      position: 3
+      prefix: "--parameters"
+    doc: "Various parameters for fine-tuning the recalibration process"
+
+outputs:
+  RecalibratedBAM:
+    type: File
+    outputBinding:
+      glob: "*.recalibrated.bam"
+    doc: "Recalibrated BAM file"
+
+  IndexFile:
+    type: File?
+    outputBinding:
+      glob: "*.bai"
+    doc: "Optional index file"
+
+  VCFOutput:
+    type: File?
+    outputBinding:
+      glob: "*.vcf"
+    doc: "Optional VCF output file"
+
+baseCommand: ["gatk", "ApplyBQSR"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+  - https://schema.org/version/latest/schemaorg-current-http.rdf
+
+s:author:
+  -. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.0', 'c...f'], 's:author': [None]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length"
+
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+
+s:creator:
+- class: s:Organization
+  s:legalName: "Cincinnati Children's Hospital Medical Center"
+  s:location:
+  - class: s:PostalAddress
+    s:addressCountry: "USA"
+    s:addressLocality: "Cincinnati"
+    s:addressRegion: "OH"
+    s:postalCode: "45229"
+    s:streetAddress: "3333 Burnet Ave"
+    s:telephone: "+1(513)636-4200"
+  s:logo: "https://www.cincinnatichildrens.org/-/media/cincinnati%20childrens/global%20shared/childrens-logo-new.png"
+  s:department:
+  - class: s:Organization
+    s:legalName: "Allergy and Immunology"
+    s:department:
+    - class: s:Organization
+      s:legalName: "Barski Research Lab"
+      s:member:
+      - class: s:Person
+        s:name: Michael Kotliar
+        s:email: mailto:misha.kotliar@gmail.com
+        s:sameAs:
+        - id: http://orcid.org/0000-0002-6486-3898
+
+doc: |
+  VDJtools is an open-source Java/Groovy-based framework designed to facilitate analysis of
+  immune repertoire sequencing (RepSeq) data. VDJtools computes a wide set of statistics and
+  is able to perform various forms of cross-sample analysis. Both comprehensive tabular output
+  and publication-ready plots are provided.
+  
+  Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length. The
+  spectratype is useful to detect pathological and highly clonal repertoires, as the spectratype
+  of non-expanded T- and B-cells has a symmetric gaussian-like distribution.
+```
+
+In this CWL file, I have defined the VDJtools Calc Spectratype workflow with inputs for unweighted analysis, amino acid analysis, VDJ file, and output prefix. The outputs include spectratype data files in various formats. Docker is used for consistent execution, and resource requirements specify a minimum of 2 CPU cores and 3814 MB of RAM. The tool description highlights the purpose of calculating the spectratype based on CDR3 nucleotide length in immune repertoire sequencing data.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...n-like distribution.\n'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length"
+
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+
+s:creator:
+- class: s:Organization
+  s:legalName: "Cincinnati Children's Hospital Medical Center"
+  s:location:
+  - class: s:PostalAddress
+    s:addressCountry: "USA"
+    s:addressLocality: "Cincinnati"
+    s:addressRegion: "OH"
+    s:postalCode: "45229"
+    s:streetAddress: "3333 Burnet Ave"
+    s:telephone: "+1(513)636-4200"
+  s:logo: "https://www.cincinnatichildrens.org/-/media/cincinnati%20childrens/global%20shared/childrens-logo-new.png"
+  s:department:
+  - class: s:Organization
+    s:legalName: "Allergy and Immunology"
+    s:department:
+    - class: s:Organization
+      s:legalName: "Barski Research Lab"
+      s:member:
+      - class: s:Person
+        s:name: Michael Kotliar
+        s:email: mailto:misha.kotliar@gmail.com
+        s:sameAs:
+        - id: http://orcid.org/0000-0002-6486-3898
+
+doc: |
+  VDJtools is an open-source Java/Groovy-based framework designed to facilitate analysis of
+  immune repertoire sequencing (RepSeq) data. VDJtools computes a wide set of statistics and
+  is able to perform various forms of cross-sample analysis. Both comprehensive tabular output
+  and publication-ready plots are provided.
+  
+  Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length. The
+  spectratype is useful to detect pathological and highly clonal repertoires, as the spectratype
+  of non-expanded T- and B-cells has a symmetric gaussian-like distribution.
+```
+
+In this CWL file, I have defined the VDJtools Calc Spectratype workflow with inputs for unweighted analysis, amino acid analysis, VDJ file, and output prefix. The outputs include spectratype data files in various formats. The Docker requirement specifies the Docker image to be used, and the resource requirements ensure a minimum of 2 CPU cores and 3814 MB of RAM. The tool description provides an overview of the workflow and its purpose.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...n-like distribution.\n'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, which is a histogram of read counts by CDR3 nucleotide length"
+
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+
+s:creator:
+- class: s:Organization
+  s:legalName: "Cincinnati Children's Hospital Medical Center"
+  s:location:
+  - class: s:PostalAddress
+    s:addressCountry: "USA"
+    s:addressLocality: "Cincinnati"
+    s:addressRegion: "OH"
+    s:postalCode: "45229"
+    s:streetAddress: "3333 Burnet Ave"
+    s:telephone: "+1(513)636-4200"
+  s:logo: "https://www.cincinnatichildrens.org/-/media/cincinnati%20childrens/global%20shared/childrens-logo-new.png"
+  s:department:
+  - class: s:Organization
+    s:legalName: "Allergy and Immunology"
+    s:department:
+    - class: s:Organization
+      s:legalName: "Barski Research Lab"
+      s:member:
+      - class: s:Person
+        s:name: Michael Kotliar
+        s:email: mailto:misha.kotliar@gmail.com
+        s:sameAs:
+        - id: http://orcid.org/0000-0002-6486-3898
+
+doc: |
+  VDJtools is an open-source Java/Groovy-based framework designed to facilitate analysis of
+  immune repertoire sequencing (RepSeq) data. VDJtools computes a wide set of statistics and
+  is able to perform various forms of cross-sample analysis. Both comprehensive tabular output
+  and publication-ready plots are provided.
+  
+  Calculates spectratype, which is a histogram of read counts by CDR3 nucleotide length. The
+  spectratype is useful to detect pathological and highly clonal repertoires, as the spectratype
+  of non-expanded T- and B-cells has a symmetric Gaussian-like distribution.
+```
+
+In this CWL file, I have defined the VDJtools Calc Spectratype workflow with inputs for unweighted analysis, amino acid analysis, VDJ file, and output prefix. The outputs include spectratype data files in various formats. Docker is used for consistent execution, and the resource requirements specify a minimum of 2 CPU cores and 3814 MB of RAM. The tool description highlights the purpose of the workflow in analyzing immune repertoire sequencing data and calculating the spectratype based on CDR3 nucleotide length.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...n-like distribution.\n'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, which is a histogram of read counts by CDR3 nucleotide length"
+
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+
+s:creator:
+- class: s:Organization
+  s:legalName: "Cincinnati Children's Hospital Medical Center"
+  s:location:
+  - class: s:PostalAddress
+    s:addressCountry: "USA"
+    s:addressLocality: "Cincinnati"
+    s:addressRegion: "OH"
+    s:postalCode: "45229"
+    s:streetAddress: "3333 Burnet Ave"
+    s:telephone: "+1(513)636-4200"
+  s:logo: "https://www.cincinnatichildrens.org/-/media/cincinnati%20childrens/global%20shared/childrens-logo-new.png"
+  s:department:
+  - class: s:Organization
+    s:legalName: "Allergy and Immunology"
+    s:department:
+    - class: s:Organization
+      s:legalName: "Barski Research Lab"
+      s:member:
+      - class: s:Person
+        s:name: Michael Kotliar
+        s:email: mailto:misha.kotliar@gmail.com
+        s:sameAs:
+        - id: http://orcid.org/0000-0002-6486-3898
+
+doc: |
+  VDJtools is an open-source Java/Groovy-based framework designed to facilitate analysis of
+  immune repertoire sequencing (RepSeq) data. VDJtools computes a wide set of statistics and
+  is able to perform various forms of cross-sample analysis. Both comprehensive tabular output
+  and publication-ready plots are provided.
+  
+  Calculates spectratype, which is a histogram of read counts by CDR3 nucleotide length. The
+  spectratype is useful to detect pathological and highly clonal repertoires, as the spectratype
+  of non-expanded T- and B-cells has a symmetric Gaussian-like distribution.
+```
+
+In this CWL file, I have defined the VDJtools Calc Spectratype workflow with inputs for unweighted analysis, amino acid analysis, VDJ file, and output prefix. The outputs include spectratype data files in various formats. Docker is used for consistent execution, and the resource requirements specify a minimum of 2 CPU cores and 3814 MB of RAM. The tool description highlights the purpose of calculating the spectratype based on CDR3 nucleotide length in immune repertoire sequencing data.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...n-like distribution.\n'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.0
+class: CommandLineTool
+
+hints:
+  DockerRequirement:
+    dockerPull: quay.io/biocontainers/gatk4:4.1.1.0--0
+  ResourceRequirement:
+    coresMin: 1
+    ramMin: 1000  # 1 GB
+
+inputs:
+  # Required Inputs
+  InputFile:
+    type: File
+    inputBinding:
+      prefix: "--input"
+
+  BaseRecalFile:
+    type: File
+    inputBinding:
+      prefix: "--bqsr-recal-file"
+
+  # Optional Inputs
+  isOutputSamProgramRecord:
+    type: boolean?
+    inputBinding:
+      prefix: "--add-output-sam-program-record"
+
+  isOutputVCFCommandLine:
+    type: boolean?
+    inputBinding:
+      prefix: "--add-output-vcf-command-line"
+
+  ArgumentsFile:
+    type: File?
+    inputBinding:
+      prefix: "--arguments_file"
+
+  CloudIndexPrefetchBuilder:
+    type: int?
+    inputBinding:
+      prefix: "--cloud-index-prefetch-buffer"
+
+  # Add more optional inputs as needed
+
+outputs:
+  RecalibratedBAM:
+    type: File
+    outputBinding:
+      glob: "ApplyBQSR.bam"
+
+  IndexFile:
+    type: ["null", File]
+    outputBinding:
+      glob: "ApplyBQSR.bai"
+
+  VCFOutput:
+    type: ["null", File]
+    format: edam:format_3016  # VCF
+    outputBinding:
+      glob: "*.vc. Got: while scanning a quoted scalar
+  in "<unicode string>", line 63, column 13:
+          glob: "*.vc
+                ^
+found unexpected end of stream
+  in "<unicode string>", line 63, column 18:
+          glob: "*.vc
+                     ^
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.0
+class: CommandLineTool
+
+hints:
+  DockerRequirement:
+    dockerPull: quay.io/biocontainers/gatk4:4.1.1.0--0
+  ResourceRequirement:
+    coresMin: 1
+    ramMin: 1000  # 1 GB
+
+inputs:
+  BAMFile:
+    type: File
+    inputBinding:
+      position: 1
+      prefix: "--input"
+    doc: "Input BAM file for base quality score recalibration."
+
+  BaseRecalibrationFile:
+    type: File
+    inputBinding:
+      position: 2
+      prefix: "--bqsr-recal-file"
+    doc: "Base recalibration file for quality score recalibration."
+
+  Output:
+    type: string
+    outputBinding:
+      glob: "ApplyBQSR.bam"
+    doc: "Recalibrated BAM file as output."
+
+  OutputIndex:
+    type: string?
+    outputBinding:
+      glob: "ApplyBQSR.bai"
+    doc: "Optional index file for the recalibrated BAM output."
+
+  OutputVCF:
+    type: string?
+    outputBinding:
+      glob: "*.vcf"
+    doc: "Optional VCF output file."
+
+  # Optional parameters for fine-tuning recalibration process
+  isOutputSamProgramRecord:
+    type: boolean?
+    inputBinding:
+      prefix: "--add-output-sam-program-record"
+    doc: "Include output SAM program record."
+
+  isOutputVCFCommandLine:
+    type: boolean?
+    inputBinding:
+      prefix: "--. Got: while scanning a quoted scalar
+  in "<unicode string>", line 56, column 15:
+          prefix: "--
+                  ^
+found unexpected end of stream
+  in "<unicode string>", line 56, column 18:
+          prefix: "--
+                     ^
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 17280 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 17184 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+cwlVersion: v1.2
+class: Workflow
+id: variant-calling-workflow
+doc: |
+  Workflow for germline variant calling from whole genome sequencing data using GATK4
+
+requirements:
+  InlineJavascriptRequirement: {}
+  ScatterFeatureRequirement: {}
+
+inputs:
+  reads:
+    type: File[]
+    label: "Input FASTQ files for paired-end sequencing"
+  genome_fasta:
+    type: File
+    label: "Reference genome FASTA file"
+    secondaryFiles: [.fai, ^.dict]
+  genome_index:
+    type: Directory
+    label: "Directory containing genome index files"
+  genome_prefix:
+    type: string
+    label: "Prefix for genome index files"
+  total_threads:
+    type: int
+    label: "Total number of threads to use"
+  haplotype_threads:
+    type: int
+    label: "Number of threads for haplotype calling"
+  snp_filters:
+    type:
+      type: array
+      items:
+        type: array
+        items: string
+    label: "Filters for SNP variant calling"
+  indel_filters:
+    type:
+      type: array
+      items:
+        type: array
+        items: string
+    label: "Filters for indel variant calling"
+
+outputs:
+  bam_flagstat_out:
+    type: File
+    outputSource: alignment/bam_flagstat_out
+    label: "BAM flagstat output file"
+  bam_stats_out:
+    type: File
+    outputSource: alignment/bam_stats_out
+    label: "BAM statistics output file"
+  sorted_indexed_bam:
+    type: File
+    outputSource: recal_reads_bam_index/indexed_bam
+    label: "Sorted and indexed BAM file"
+    secondaryFiles: .bai
+  mark_duplicates_metrics:
+    type: File
+    outputSource: mark_duplicates/metrics
+    label: "Mark duplicates metrics file"
+  snp_out:
+    type: File
+    outputSource: gatk_select_variants_snp_filtered_recal/output
+    label: "Filtered SNP variants in VCF format"
+    secondaryFiles: .idx
+  indels_out:
+    type: File
+    outputSource: gatk_select_variants_indels_filtered_recal/output
+    label: "Filtered indel variants in VCF format"
+    secondaryFiles: .idx
+
+steps:
+  # Step to extract chromosome names from the reference genome
+  get_chromosomes:
+    run: extract-chrom-names-from-fasta.cwl
+    in:
+      file: genome_fasta
+    out: [output]
+
+  # Step for alignment using BWA
+  alignment:
+    run: bwa-alignment-sort.cwl
+    in:
+      reads: reads
+      genome_index: genome_index
+      genome_prefix: genome_prefix
+      threads: total_threads
+    out: [sorted_indexed_bam, bam_flagstat_out, bam_stats_out]
+
+  # Step to mark duplicates
+  mark_duplicates:
+    run: ../../tools/gatk/gatk-MarkDuplicates.cwl
+    in:
+      I: alignment/sorted_indexed_bam
+      O: $(inputs.I.nameroot + "_sorted_dedup_reads.bam")
+      M: $(inputs.I.nameroot + "_dedup_metrics.txt")
+    out: [output, metrics]
+
+  # Step to index the deduplicated BAM file
+  index_bam:
+    run: ../../tools/samtools/samtools-index-bam.cwl
+    in:
+      bam: mark_duplicates/output
+    out: [indexed_bam]
+
+  # Step to split BAM file by chromosome
+  split_bam_chrom:
+    run: ../../tools/samtools/samtools-view-indexed.cwl
+    scatter: region
+    in:
+      isbam: true
+      input: index_bam/indexed_bam
+      threads: 1
+      region: get_chromosomes/output
+      output_name: $(inputs.input.nameroot + "_" + inputs.region + ".bam")
+    out: [output]
+
+  # Additional steps for variant calling, filtering, and post-processing (not shown for brevity)
+
+  # Final steps for variant calling output
+  gatk_select_variants_snp_filtered_recal:
+    run: ../../tools/gatk/gatk-SelectVariants.cwl
+    in:
+      R: genome_fasta
+      V: gather_vcf_recal/output
+      selectType: "SNP"
+      O: $(inputs.V.nameroot.replace("_raw_variants_recal", "_raw_snps_recal.vcf"))
+    out: [output]
+
+  gatk_select_variants_indels_filtered_recal:
+    run: ../../tools/gatk/gatk-SelectVariants.cwl
+    in:
+      R: genome_fasta
+      V: gather_vcf_recal/output
+      selectType: "INDEL"
+      O: $(inputs.V.nameroot.replace("_raw_variants_recal", "_raw_indels_recal.vcf"))
+    out: [output]
+
+# Additional steps for post-processing and analysis can be added here
+
+```
+
+Assumptions/Decisions:
+- The workflow includes essential steps for variant calling such as alignment, marking duplicates, variant calling, and variant filtering.
+- Additional steps for post-processing, quality control, and downstream analysis are not shown for brevity but can be added as needed.
+- The workflow assumes the availability of CWL tool descriptions for tools like BWA, GATK, and Samtools for alignment, variant calling, and BAM file manipulation.
+- The workflow is designed to be scalable and parallelizable, utilizing multiple threads for efficient processing.
+- Input FASTQ files are assumed to be paired-end sequencing data.
+- Filters for SNP and indel variant calling are provided as input parameters to customize the variant calling process.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.2', 'c...'}, 'out': ['output']}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 21671 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 21671 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}

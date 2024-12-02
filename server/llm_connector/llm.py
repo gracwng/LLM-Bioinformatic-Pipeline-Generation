@@ -20,8 +20,14 @@ llm2 = ChatTogether(
     api_key=TOGETHER_API_KEY,  # if you prefer to pass api key in directly instaed of using env vars
 )
 
-llm = ChatOpenAI(
+llm3 = ChatOpenAI(
     model_name="gpt-4o-mini",
+    api_key = OPENAI_API_KEY,
+    temperature = 0, 
+    )  
+
+llm = ChatOpenAI(
+    model_name="gpt-3.5-turbo",
     api_key = OPENAI_API_KEY,
     temperature = 0, 
     )  
