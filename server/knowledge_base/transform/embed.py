@@ -71,6 +71,7 @@ def addEmbeddingsToMongoDB():
 
 
 def main():
+    
     addEmbeddingsToMongoDB()
     pass
 

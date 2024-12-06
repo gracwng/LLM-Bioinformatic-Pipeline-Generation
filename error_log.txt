@@ -1,0 +1,2199 @@
+Unexpected error: 'RetrieverBuilder' object has no attribute 'invoke'
+Error during parsing: Failed to parse CWLDocument from completion # "VDJtools Calc Spectratype" CWL File
+
+## Section 1: CWL File Contents
+
+```yaml
+cwlVersion: v1.2
+
+class: CommandLineTool
+
+baseCommand: vdjtools
+
+requirements:
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+  ResourceRequirement:
+    coresMin: 2
+    ramMin: 3814
+
+inputs:
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 1
+    doc: "Input VDJ file for spectratype analysis"
+
+  unweighted_analysis:
+    type: boolean?
+    inputBinding:
+      position: 2
+    default: false
+    doc: "Perform unweighted analysis (optional)"
+
+  amino_acid_analysis:
+    type: boolean?
+    inputBinding:
+      position: 3
+    default: false
+      doc: "Perform amino acid analysis (optional)"
+
+outputs:
+  insert_spectratype:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+    doc: "Spectratype data in insert format"
+
+  ndn_spectratype:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+    doc: "Spectratype data in ndn format"
+
+  aa_spectratype:
+    type: File
+    outputBinding:
+      glob: "*.aa.wt.txt"
+    doc: "Spectratype data in amino acid format"
+
+  nt_spectratype:
+    type: File
+    outputBinding:
+      glob: "*.nt.wt.txt"
+    doc: "Spectratype data in nucleotide format"
+
+stdout: output.txt
+
+doc: |
+  VDJtools Calc Spectratype workflow is used to analyze immune repertoire sequencing data by calculating the spectratype based on CDR3 nucleotide length. 
+  This tool supports optional unweighted and amino acid analysis and generates spectratype data in various formats.
+```
+
+## Section 2: Explanation
+
+### Overview:
+The CWL file defines a CommandLineTool named "VDJtools Calc Spectratype" used for analyzing immune repertoire sequencing data. The tool calculates spectratype based on CDR3 nucleotide length and supports optional unweighted and amino acid analysis.
+
+### Key Components:
+- **baseCommand:** Specifies the base command for the tool as "vdjtools".
+- **requirements:**
+  - **DockerRequirement:** Specifies the Docker image to pull for the tool.
+  - **ResourceRequirement:** Sets the minimum resource requirements to 2 CPU cores and 3814 MB of RAM.
+- **inputs:**
+  - **vdj_file:** Input VDJ file for spectratype analysis.
+  - **unweighted_analysis:** Optional boolean parameter to perform unweighted analysis.
+  - **amino_acid_analysis:** Optional boolean parameter to perform amino acid analysis.
+- **outputs:**
+  - **insert_spectratype:** Output file for spectratype data in insert format.
+  - **ndn_spectratype:** Output file for spectratype data in ndn format.
+  - **aa_spectratype:** Output file for spectratype data in amino acid format.
+  - **nt_spectratype:** Output file for spectratype data in nucleotide format.
+- **stdout:** Specifies the standard output file as "output.txt".
+- **doc:** Provides a description of the tool's purpose and functionality.
+
+### Notable Features:
+- The tool allows for optional unweighted and amino acid analysis.
+- Outputs spectratype data in various formats for flexibility in downstream analysis.
+- Resource requirements are specified to ensure efficient execution of the tool.. Got: mapping values are not allowed here
+  in "<unicode string>", line 34, column 10:
+          doc: "Perform amino acid analysis ( ... 
+             ^
+Unexpected error: 'RetrieverBuilder' object has no attribute 'invoke'
+Error during parsing: Failed to parse CWLDocument from completion # "VDJtools Calc Spectratype" CWL File
+
+## Section 1: CWL File Contents
+
+```yaml
+cwlVersion: v1.2
+class: CommandLineTool
+
+requirements:
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+inputs:
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 1
+    doc: "Input VDJ file for spectratype analysis."
+
+  unweighted_analysis:
+    type: boolean?
+    inputBinding:
+      position: 2
+    default: false
+    doc: "Perform unweighted analysis if true."
+
+  amino_acid_analysis:
+    type: boolean?
+    inputBinding:
+      position: 3
+    default: false
+    doc: "Perform amino acid analysis if true."
+
+outputs:
+  insert_wt_spectratype:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+    doc: "Spectratype data in insert weight format."
+
+  ndn_wt_spectratype:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+    doc: "Spectratype data in NDN weight format."
+
+  aa_wt_spectratype:
+    type: File
+    outputBinding:
+      glob: "*.aa.wt.txt"
+    doc: "Spectratype data in amino acid weight format."
+
+  nt_wt_spectratype:
+    type: File
+    outputBinding:
+      glob: "*.nt.wt.txt"
+    doc: "Spectratype data in nucleotide weight format."
+
+doc: |
+  VDJtools Calc Spectratype workflow is used to analyze immune repertoire sequencing data by calculating the spectratype, which is a histogram of read counts based on CDR3 nucleotide length. This tool requires a VDJ file as input and can perform optional unweighted and amino acid analysis. The output includes spectratype data in various formats.
+```
+
+## Section 2: Explanation
+
+### a. Purpose:
+The CWL file defines a CommandLineTool for the "VDJtools Calc Spectratype" workflow. This workflow is designed to analyze immune repertoire sequencing data by calculating the spectratype, which represents a histogram of read counts based on the CDR3 nucleotide length.
+
+### b. Key Components:
+1. **Requirements**:
+   - The tool specifies DockerRequirement to pull the Docker image "yyasumizu/vdjtools" and ResourceRequirement setting minimum RAM and cores requirements.
+   
+2. **Base Command**:
+   - The base command is set to "vdjtools CalcSpectratype" for initiating the spectratype analysis.
+   
+3. **Inputs**:
+   - **vdj_file**: A File type input representing the VDJ file required for spectratype analysis.
+   - **unweighted_analysis**: A boolean flag (optional) to perform unweighted analysis.
+   - **amino_acid_analysis**: A boolean flag (optional) to perform amino acid analysis.
+   
+4. **Outputs**:
+   - Various types of spectratype data files are generated as outputs, each defined with a specific format and description:
+     - insert_wt_spectratype
+     - ndn_wt_spectratype
+     - aa_wt_spectratype
+     - nt_wt_spectratype
+
+### c. Notable Features:
+- The tool leverages Docker for execution, ensuring reproducibility and portability.
+- Specific resource constraints (RAM and cores) are defined to manage the tool's resource utilization.
+- Detailed descriptions are provided for inputs, outputs, and the overall tool, enhancing usability and understanding for users.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.2', 'c... in various formats.\n'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Unexpected error: 'RetrieverBuilder' object has no attribute 'invoke'
+Unexpected error: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 18306 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Unexpected error: 'RetrieverBuilder' object has no attribute 'get_relevant_documents'
+Unexpected error: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 18195 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Unexpected error: 'RetrieverBuilder' object has no attribute 'get_relevant_documents'
+Error during parsing: Failed to parse CWLDocument from completion # "Calculate Spectratype" CWL File
+
+## CWL File Contents:
+
+```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+```
+
+## Explanation:
+
+### Overview:
+The CWL file represents a CommandLineTool workflow designed to calculate the spectratype from immune repertoire sequencing data using the VDJTools software. It allows optional parameters for unweighted and amino acid analysis and produces multiple output files in different formats.
+
+### Key Components:
+- **Inputs:**
+  - `unweighted`: Optional boolean parameter for unweighted analysis.
+  - `amino_acid`: Optional boolean parameter for amino acid analysis.
+  - `vdj_file`: Input File parameter representing the VDJ file for analysis.
+  - `output_prefix`: Optional string parameter with a default value of "./" for specifying the output directory.
+
+- **Outputs:**
+  - `spectratype_insert_wt_file`: Output File representing the "*.insert.wt.txt" file generated by the tool.
+  - `spectratype_ndn_wt_file`: Output File representing the "*.ndn.wt.txt" file generated by the tool.
+  - `spectratype_aa_wt_file`: Optional Output File representing the "*.aa.wt.txt" file generated by the tool.
+  - `spectratype_nt_wt_file`: Optional Output File representing the "*.nt.wt.txt" file generated by the tool.
+
+- **Requirements:**
+  - The tool specifies ResourceRequirement with a minimum of 3814 MB RAM and 2 CPU cores.
+  - DockerRequirement is used to pull the Docker image "yyasumizu/vdjtools" for consistent execution.
+
+- **Base Command:**
+  - The base command for the tool is set to ["vdjtools", "CalcSpectratype"].
+
+### Notable Features:
+- The tool allows for flexibility by providing optional parameters for different types of analysis.
+- Output files are defined with specific globs to capture the relevant files generated by the tool.
+- Docker is utilized to ensure reproducibility and portability of the tool execution environment.
+- Resource requirements are specified to ensure the tool runs efficiently with the necessary computational resources.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ls', 'CalcSpectratype']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Unexpected error: 'RetrieverBuilder' object has no attribute 'get_relevant_documents'
+Unexpected error: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 17830 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Unexpected error: 'RetrieverBuilder' object has no attribute 'get_relevant_documents'
+Error during parsing: Failed to parse CWLDocument from completion # "Immune Repertoire Analysis" CWL File
+
+## CWL File Contents:
+```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+```
+
+## Explanation:
+- **Purpose:** The CWL file defines a CommandLineTool for analyzing immune repertoire sequencing data by calculating spectratype based on CDR3 nucleotide length.
+  
+- **Key Components:**
+  - **Resource Requirements:** Specifies a minimum of 3814 MB of RAM and 2 CPU cores for optimal performance.
+  - **Docker Requirement:** Ensures consistent execution by pulling the Docker image `yyasumizu/vdjtools`.
+  - **Inputs:**
+    - `unweighted` (boolean): Option for unweighted analysis.
+    - `amino_acid` (boolean): Option for amino acid analysis.
+    - `vdj_file` (File): Input VDJ file for analysis.
+    - `output_prefix` (string): Prefix for the output files with a default value of "./".
+  - **Outputs:**
+    - `spectratype_insert_wt_file` (File): Output file with glob pattern "*.insert.wt.txt".
+    - `spectratype_ndn_wt_file` (File): Output file with glob pattern "*.ndn.wt.txt".
+    - `spectratype_aa_wt_file` (File): Optional output file with glob pattern "*.aa.wt.txt".
+    - `spectratype_nt_wt_file` (File): Optional output file with glob pattern "*.nt.wt.txt".
+  
+- **Notable Features:**
+  - Utilizes Docker for portability and reproducibility of the analysis environment.
+  - Allows flexibility with optional outputs for amino acid and nucleotide spectratype data.
+  - Defines a base command to run the `vdjtools CalcSpectratype` tool for the analysis process.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ls', 'CalcSpectratype']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Unexpected error: 'RetrieverBuilder' object has no attribute 'invoke'
+Error during parsing: Failed to parse CWLDocument from completion # "Calculate Spectratype" CWL File
+
+## CWL File Contents
+
+```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+```
+
+## Explanation
+
+### Overview:
+The CWL file represents a CommandLineTool workflow designed to calculate the spectratype from immune repertoire sequencing data using the tool "vdjtools CalcSpectratype".
+
+### Key Components:
+- **Inputs**:
+  - `unweighted`: Optional boolean parameter for unweighted analysis.
+  - `amino_acid`: Optional boolean parameter for amino acid analysis.
+  - `vdj_file`: Input File parameter representing the VDJ file for analysis.
+  - `output_prefix`: Optional string parameter with a default value of "./" for the output file prefix.
+
+- **Outputs**:
+  - `spectratype_insert_wt_file`: Output File representing the result file with the glob pattern "*.insert.wt.txt".
+  - `spectratype_ndn_wt_file`: Output File representing the result file with the glob pattern "*.ndn.wt.txt".
+  - `spectratype_aa_wt_file`: Optional Output File representing the result file with the glob pattern "*.aa.wt.txt".
+  - `spectratype_nt_wt_file`: Optional Output File representing the result file with the glob pattern "*.nt.wt.txt".
+
+- **Requirements**:
+  - The tool specifies ResourceRequirement with a minimum of 3814 MB RAM and 2 CPU cores.
+  - DockerRequirement is used with the image "yyasumizu/vdjtools" for consistent execution.
+
+- **Base Command**:
+  - The base command for the tool execution is ["vdjtools", "CalcSpectratype"].
+
+### Notable Features:
+- Optional parameters for unweighted and amino acid analysis provide flexibility in the tool's functionality.
+- The tool generates multiple output files based on the CDR3 nucleotide length, enhancing result interpretation.
+- Docker is utilized for containerized execution, ensuring reproducibility and portability of the workflow.
+- Resource requirements are specified to ensure the tool runs efficiently with the necessary computational resources.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ls', 'CalcSpectratype']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Unexpected error: name 'getRetrievers' is not defined
+Error during parsing: Failed to parse CWLDocument from completion # "Calculate Spectratype" CWL File
+
+## CWL File Contents
+```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+```
+
+## Explanation
+- **Purpose:** The workflow is designed to calculate the spectratype from immune repertoire sequencing data using the VDJTools software.
+  
+- **Inputs:**
+  - `unweighted` and `amino_acid`: Optional boolean parameters for unweighted and amino acid analysis.
+  - `vdj_file`: Mandatory input of type File representing the VDJ file.
+  - `output_prefix`: Optional string parameter with a default value of "./" representing the output directory path.
+  
+- **Outputs:**
+  - `spectratype_insert_wt_file`, `spectratype_ndn_wt_file`: Mandatory output files with spectratype data in different formats, identified by the specified globs.
+  - `spectratype_aa_wt_file`, `spectratype_nt_wt_file`: Optional output files with spectratype data in different formats, identified by the specified globs.
+  
+- **Requirements:**
+  - The tool specifies resource requirements using hints:
+    - Minimum RAM of 3814 MB and 2 CPU cores are required for execution.
+    - Docker is required, and the image "yyasumizu/vdjtools" will be pulled for consistent execution.
+  
+- **Base Command:** The base command for the tool execution is ["vdjtools", "CalcSpectratype"]. This command will be executed with additional arguments based on the provided inputs.
+
+- **Notable Features:**
+  - The tool allows for flexibility with optional parameters for different types of spectratype analysis.
+  - Output files are defined with specific globs to capture the relevant data.
+  - Docker is used to ensure reproducibility and portability of the tool execution environment.
+  - Resource requirements are specified to ensure the tool runs efficiently with the necessary resources.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ls', 'CalcSpectratype']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during parsing: Failed to parse CWLDocument from completion # "Spectratype Calculation" CWL File
+
+## Section 1: CWL File Contents
+
+```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+```
+
+## Section 2: Explanation
+
+### a. Purpose:
+The workflow described in this CWL file is a CommandLineTool that calculates the spectratype from a VDJ file based on the CDR3 nucleotide length. It provides options for unweighted and amino acid analysis and generates output files in different formats.
+
+### b. Key Components:
+- **Inputs**:
+  - `unweighted`: Optional boolean parameter for unweighted analysis.
+  - `amino_acid`: Optional boolean parameter for amino acid analysis.
+  - `vdj_file`: Input File parameter representing the VDJ file.
+  - `output_prefix`: Optional string parameter with a default value of "./" for the output file prefix.
+
+- **Outputs**:
+  - `spectratype_insert_wt_file`: Output File representing the "*.insert.wt.txt" file.
+  - `spectratype_ndn_wt_file`: Output File representing the "*.ndn.wt.txt" file.
+  - `spectratype_aa_wt_file`: Optional Output File representing the "*.aa.wt.txt" file.
+  - `spectratype_nt_wt_file`: Optional Output File representing the "*.nt.wt.txt" file.
+
+- **Requirements**:
+  - `ResourceRequirement`: Specifies a minimum of 3814 MB RAM and 2 CPU cores for execution.
+  - `DockerRequirement`: Specifies the Docker image "yyasumizu/vdjtools" for consistent execution.
+
+- **Base Command**:
+  - The base command for the tool is ["vdjtools", "CalcSpectratype"].
+
+### c. Notable Features:
+- **Optional Parameters**: The tool allows for optional parameters (`unweighted` and `amino_acid`) to customize the analysis.
+- **Output Formats**: The tool produces output files in different formats based on the analysis performed.
+- **Resource Requirements**: The tool specifies minimum resource requirements for RAM and CPU cores.
+- **Docker Usage**: Docker is used to ensure consistent execution environment for the tool.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ls', 'CalcSpectratype']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during parsing: Failed to parse CWLWorkflow from completion # "[Spectratype Calculation] CWL File"
+
+## Section 1: CWL File Contents
+
+```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+```
+
+## Section 2: Explanation
+
+### a. Purpose:
+The workflow described in the CWL file is designed to perform spectratype calculations from immune repertoire sequencing data using the VDJTools software tool.
+
+### b. Key Components:
+- **Inputs:**
+  - `unweighted`: Optional boolean parameter for unweighted analysis.
+  - `amino_acid`: Optional boolean parameter for amino acid analysis.
+  - `vdj_file`: Input file of type File containing the VDJ data.
+  - `output_prefix`: Optional string parameter with a default value of "./" specifying the output directory.
+
+- **Outputs:**
+  - `spectratype_insert_wt_file`: Output File with a glob pattern "*.insert.wt.txt".
+  - `spectratype_ndn_wt_file`: Output File with a glob pattern "*.ndn.wt.txt".
+  - `spectratype_aa_wt_file`: Optional output File with a glob pattern "*.aa.wt.txt".
+  - `spectratype_nt_wt_file`: Optional output File with a glob pattern "*.nt.wt.txt".
+
+- **Requirements:**
+  - The workflow specifies resource requirements using hints:
+    - `ResourceRequirement`: Specifies a minimum of 3814 MB RAM and 2 CPU cores.
+    - `DockerRequirement`: Specifies the Docker image "yyasumizu/vdjtools" for consistent execution.
+
+- **Base Command:**
+  - The base command for the tool execution is ["vdjtools", "CalcSpectratype"].
+
+### c. Notable Features:
+- The CWL file leverages Docker for portability and reproducibility of the tool execution environment.
+- Optional parameters for unweighted and amino acid analysis provide flexibility in the spectratype calculation process.
+- The tool generates multiple output files in different formats based on the CDR3 nucleotide length, enhancing result interpretation and downstream analysis.. Got: 6 validation errors for CWLWorkflow
+label
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ls', 'CalcSpectratype']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+doc
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ls', 'CalcSpectratype']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+inputs
+  Input should be a valid list [type=list_type, input_value={'unweighted': {'type': '...ding': {'position': 8}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/list_type
+outputs
+  Input should be a valid list [type=list_type, input_value={'spectratype_insert_wt_f...'glob': '*.nt.wt.txt'}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/list_type
+requirements
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ls', 'CalcSpectratype']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+steps
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ls', 'CalcSpectratype']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during parsing: Failed to parse CWLWorkflow from completion **[Workflow Name] CWL File**
+
+**Section 1: CWL File Contents**
+```yaml
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length"
+
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+
+s:creator:
+- class: s:Organization
+  s:legalName: "Cincinnati Children's Hospital Medical Center"
+  s:location:
+  - class: s:PostalAddress
+    s:addressCountry: "USA"
+    s:addressLocality: "Cincinnati"
+    s:addressRegion: "OH"
+```
+
+**Section 2: Explanation**
+
+a. **Purpose of the Workflow:**
+   The workflow is designed to calculate spectratype, which is a histogram of read counts by CDR3 nucleotide length using VDJtools.
+
+b. **Key Components:**
+   - **Inputs:**
+     - `unweighted`: A boolean flag for unweighted calculation.
+     - `amino_acid`: A boolean flag for amino acid calculation.
+     - `vdj_file`: Input file of type File.
+     - `output_prefix`: Optional string input for the output file prefix.
+
+   - **Outputs:**
+     - `spectratype_insert_wt_file`: Output file with a glob pattern "*.insert.wt.txt".
+     - `spectratype_ndn_wt_file`: Output file with a glob pattern "*.ndn.wt.txt".
+     - `spectratype_aa_wt_file`: Optional output file with a glob pattern "*.aa.wt.txt".
+     - `spectratype_nt_wt_file`: Optional output file with a glob pattern "*.nt.wt.txt".
+
+   - **Requirements:**
+     - ResourceRequirement: Specifies minimum RAM and cores required.
+     - DockerRequirement: Specifies the Docker image to pull for execution.
+
+   - **Base Command:**
+     The base command for execution is `vdjtools CalcSpectratype`.
+
+   - **Other Details:**
+     - Namespaces and schemas are defined for metadata.
+     - The workflow has a label, alternate name, and license specified.
+     - Creator information includes the organization name, location, and address details.
+
+c. **Notable Features/Assumptions:**
+   - The workflow assumes the availability of the VDJtools software and a specific Docker image for execution.
+   - Optional outputs for amino acid and nucleotide files are provided, allowing flexibility in the output generated based on user requirements.. Got: 5 validation errors for CWLWorkflow
+doc
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ddressRegion': 'OH'}]}]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+inputs
+  Input should be a valid list [type=list_type, input_value={'unweighted': {'type': '...ding': {'position': 8}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/list_type
+outputs
+  Input should be a valid list [type=list_type, input_value={'spectratype_insert_wt_f...'glob': '*.nt.wt.txt'}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/list_type
+requirements
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ddressRegion': 'OH'}]}]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+steps
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ddressRegion': 'OH'}]}]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during parsing: Failed to parse CWLDocument from completion # "Spectratype Calculation" CWL File
+
+## Section 1: CWL File Contents
+
+```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+```
+
+## Section 2: Explanation
+
+### Overview:
+The CWL file defines a CommandLineTool for calculating spectratype based on CDR3 nucleotide length from a VDJ file. It allows optional parameters for unweighted and amino acid analysis and produces output files in different formats.
+
+### Key Components:
+- **Inputs:**
+  - `unweighted`: Optional boolean parameter for unweighted analysis.
+  - `amino_acid`: Optional boolean parameter for amino acid analysis.
+  - `vdj_file`: Input File parameter representing the VDJ file.
+  - `output_prefix`: Optional string parameter with a default value, specifying the output directory.
+
+- **Outputs:**
+  - `spectratype_insert_wt_file`: Output File representing the *.insert.wt.txt file.
+  - `spectratype_ndn_wt_file`: Output File representing the *.ndn.wt.txt file.
+  - `spectratype_aa_wt_file`: Optional Output File representing the *.aa.wt.txt file.
+  - `spectratype_nt_wt_file`: Optional Output File representing the *.nt.wt.txt file.
+
+- **Requirements:**
+  - `ResourceRequirement`: Specifies a minimum of 3814 MB RAM and 2 CPU cores.
+  - `DockerRequirement`: Pulls the Docker image "yyasumizu/vdjtools" for consistent execution.
+
+- **Base Command:**
+  - The tool's base command is ["vdjtools", "CalcSpectratype"].
+
+### Notable Features:
+- The tool uses Docker for portability and reproducibility.
+- Positional bindings are used for specifying the order of command-line arguments.
+- Optional parameters are defined with the type followed by a "?" to indicate their optional nature.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ls', 'CalcSpectratype']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during parsing: Failed to parse CWLDocument from completion # "VDJtools Calc Spectratype" CWL File
+
+## CWL File Contents:
+
+```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length"
+
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+```
+
+## Explanation:
+
+### Overview:
+The CWL file defines a CommandLineTool named "VDJtools Calc Spectratype" used for analyzing immune repertoire sequencing data to calculate the spectratype, which represents a histogram of read counts by CDR3 nucleotide length.
+
+### Key Components:
+- **Inputs:**
+  - `unweighted`: Optional boolean parameter for unweighted analysis.
+  - `amino_acid`: Optional boolean parameter for amino acid analysis.
+  - `vdj_file`: Required input of type File representing the VDJ file.
+  - `output_prefix`: Optional string parameter with a default value of "./" used as the output directory prefix.
+
+- **Outputs:**
+  - `spectratype_insert_wt_file`: Output File with a glob pattern "*.insert.wt.txt".
+  - `spectratype_ndn_wt_file`: Output File with a glob pattern "*.ndn.wt.txt".
+  - `spectratype_aa_wt_file`: Optional output File with a glob pattern "*.aa.wt.txt".
+  - `spectratype_nt_wt_file`: Optional output File with a glob pattern "*.nt.wt.txt".
+
+- **Requirements:**
+  - `ResourceRequirement`: Specifies minimum RAM and cores required for the tool.
+  - `DockerRequirement`: Specifies the Docker image to be pulled for execution.
+
+- **Base Command:**
+  - The base command for the tool is ["vdjtools", "CalcSpectratype"].
+
+- **Other Features:**
+  - The CWL file includes namespaces and schemas for metadata.
+  - It provides a label and an alternate name for the tool along with a license link.
+
+### Assumptions:
+- The tool assumes the presence of the "vdjtools" executable in the execution environment.
+- The tool assumes the input VDJ file is provided for spectratype calculation.
+- The tool allows for optional parameters for different types of spectratype analysis.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...g/licenses/LICENSE-2.0'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: SSL handshake failed: dev-shard-00-01.rm7ss.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1006) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: dev-shard-00-02.rm7ss.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1006) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: dev-shard-00-00.rm7ss.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1006) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 674bd2ad34bb437ef51e1bf5, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('dev-shard-00-00.rm7ss.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: dev-shard-00-00.rm7ss.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1006) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('dev-shard-00-01.rm7ss.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: dev-shard-00-01.rm7ss.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1006) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('dev-shard-00-02.rm7ss.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: dev-shard-00-02.rm7ss.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1006) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+``` 
+
+In this CWL file:
+- The tool calculates the spectratype based on CDR3 nucleotide length from a VDJ file.
+- It takes optional parameters for unweighted and amino acid analysis.
+- The tool produces output files in various formats: .insert.wt.txt, .ndn.wt.txt, .aa.wt.txt, .nt.wt.txt.
+- Docker is used for consistent execution.
+- The tool requires a minimum of 2 CPU cores and 3814 MB of RAM for execution.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...ls', 'CalcSpectratype']}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length"
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+s:creator:
+  - class: s:Organization
+    s:legalName: "Cincinnati Children's Hospital Medical Center"
+    s:location:
+      - class: s:PostalAddress
+        s:addressCountry: "USA"
+        s:addressLocality: "Cincinnati"
+        s:addressRegion: "OH. Got: while scanning a quoted scalar
+  in "<unicode string>", line 76, column 26:
+            s:addressRegion: "OH
+                             ^
+found unexpected end of stream
+  in "<unicode string>", line 76, column 29:
+            s:addressRegion: "OH
+                                ^
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 44470 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 44470 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 18408 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 18640 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length"
+
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+
+s:creator:
+- class: s:Organization
+  s:legalName: "Cincinnati Children's Hospital Medical Center"
+  s:location:
+  - class: s:PostalAddress
+    s:addressCountry: "USA"
+    s:addressLocality: "Cincinnati"
+    s:addressRegion: "OH"
+    s:postalCode: "45229"
+    s:streetAddress: "3333 Burnet Ave"
+    s:telephone: "+1(513)636-4200"
+  s:logo: "https://www.cincinnatichildrens.org/-/media/cincinnati%20childrens/global%20shared/childrens-logo-new.png"
+  s:department:
+  - class: s:Organization
+    s:legalName: "Allergy and Immunology"
+    s:department:
+    - class: s:Organization
+      s:legalName: "Barski Research Lab"
+      s:member:
+      - class: s:Person
+        s:name: Michael Kotliar
+        s:email: mailto:misha.kotliar@gmail.com
+        s:sameAs:
+        - id: http://orcid.org/0000-0002-6486-3898
+
+doc: |
+  VDJtools is an open-source Java/Groovy-based framework designed to facilitate analysis of
+  immune repertoire sequencing (RepSeq) data. VDJtools computes a wide set of statistics and
+  is able to perform various forms of cross-sample analysis. Both comprehensive tabular output
+  and publication-ready plots are provided.
+  
+  Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length. The
+  spectratype is useful to detect pathological and highly clonal repertoires, as the spectratype
+  of non-expanded T- and B-cells has a symmetric gaussian-like distribution.
+```
+
+In this CWL file, I have defined the VDJtools Calc Spectratype workflow with inputs for unweighted analysis, amino acid analysis, VDJ file, and output prefix. The outputs include spectratype data files in various formats. The Docker requirement specifies the Docker image to be used, and the resource requirements ensure a minimum of 2 CPU cores and 3814 MB of RAM. The tool description provides an overview of the workflow and its purpose.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...n-like distribution.\n'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 33689 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+cwlVersion: v1.0
+class: CommandLineTool
+id: gatk-ApplyBQSR
+label: GATK ApplyBQSR - Base Quality Score Recalibration
+doc: |
+  This Common Workflow Language (CWL) tool implements the Genome Analysis Toolkit (GATK) function 'ApplyBQSR', which is used for base quality score recalibration in genomic data processing.
+
+hints:
+  DockerRequirement:
+    dockerPull: quay.io/biocontainers/gatk:latest
+requirements:
+  ResourceRequirement:
+    coresMin: 1
+    ramMin: 2048
+
+inputs:
+  BAMFile:
+    type: File
+    secondaryFiles: .bai
+    inputBinding:
+      position: 1
+      prefix: "-I"
+    doc: "Input BAM file for recalibration"
+
+  BaseRecalFile:
+    type: File
+    inputBinding:
+      position: 2
+      prefix: "--bqsr"
+    doc: "Base recalibration file"
+
+  Parameters:
+    type: string?
+    inputBinding:
+      position: 3
+      prefix: "--parameters"
+    doc: "Various parameters for fine-tuning the recalibration process"
+
+outputs:
+  RecalibratedBAM:
+    type: File
+    outputBinding:
+      glob: "*.recalibrated.bam"
+    doc: "Recalibrated BAM file"
+
+  IndexFile:
+    type: File?
+    outputBinding:
+      glob: "*.bai"
+    doc: "Optional index file"
+
+  VCFOutput:
+    type: File?
+    outputBinding:
+      glob: "*.vcf"
+    doc: "Optional VCF output file"
+
+baseCommand: ["gatk", "ApplyBQSR"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+  - https://schema.org/version/latest/schemaorg-current-http.rdf
+
+s:author:
+  -. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.0', 'c...f'], 's:author': [None]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length"
+
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+
+s:creator:
+- class: s:Organization
+  s:legalName: "Cincinnati Children's Hospital Medical Center"
+  s:location:
+  - class: s:PostalAddress
+    s:addressCountry: "USA"
+    s:addressLocality: "Cincinnati"
+    s:addressRegion: "OH"
+    s:postalCode: "45229"
+    s:streetAddress: "3333 Burnet Ave"
+    s:telephone: "+1(513)636-4200"
+  s:logo: "https://www.cincinnatichildrens.org/-/media/cincinnati%20childrens/global%20shared/childrens-logo-new.png"
+  s:department:
+  - class: s:Organization
+    s:legalName: "Allergy and Immunology"
+    s:department:
+    - class: s:Organization
+      s:legalName: "Barski Research Lab"
+      s:member:
+      - class: s:Person
+        s:name: Michael Kotliar
+        s:email: mailto:misha.kotliar@gmail.com
+        s:sameAs:
+        - id: http://orcid.org/0000-0002-6486-3898
+
+doc: |
+  VDJtools is an open-source Java/Groovy-based framework designed to facilitate analysis of
+  immune repertoire sequencing (RepSeq) data. VDJtools computes a wide set of statistics and
+  is able to perform various forms of cross-sample analysis. Both comprehensive tabular output
+  and publication-ready plots are provided.
+  
+  Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length. The
+  spectratype is useful to detect pathological and highly clonal repertoires, as the spectratype
+  of non-expanded T- and B-cells has a symmetric gaussian-like distribution.
+```
+
+In this CWL file, I have defined the VDJtools Calc Spectratype workflow with inputs for unweighted analysis, amino acid analysis, VDJ file, and output prefix. The outputs include spectratype data files in various formats. Docker is used for consistent execution, and resource requirements specify a minimum of 2 CPU cores and 3814 MB of RAM. The tool description highlights the purpose of calculating the spectratype based on CDR3 nucleotide length in immune repertoire sequencing data.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...n-like distribution.\n'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length"
+
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+
+s:creator:
+- class: s:Organization
+  s:legalName: "Cincinnati Children's Hospital Medical Center"
+  s:location:
+  - class: s:PostalAddress
+    s:addressCountry: "USA"
+    s:addressLocality: "Cincinnati"
+    s:addressRegion: "OH"
+    s:postalCode: "45229"
+    s:streetAddress: "3333 Burnet Ave"
+    s:telephone: "+1(513)636-4200"
+  s:logo: "https://www.cincinnatichildrens.org/-/media/cincinnati%20childrens/global%20shared/childrens-logo-new.png"
+  s:department:
+  - class: s:Organization
+    s:legalName: "Allergy and Immunology"
+    s:department:
+    - class: s:Organization
+      s:legalName: "Barski Research Lab"
+      s:member:
+      - class: s:Person
+        s:name: Michael Kotliar
+        s:email: mailto:misha.kotliar@gmail.com
+        s:sameAs:
+        - id: http://orcid.org/0000-0002-6486-3898
+
+doc: |
+  VDJtools is an open-source Java/Groovy-based framework designed to facilitate analysis of
+  immune repertoire sequencing (RepSeq) data. VDJtools computes a wide set of statistics and
+  is able to perform various forms of cross-sample analysis. Both comprehensive tabular output
+  and publication-ready plots are provided.
+  
+  Calculates spectratype, that is, histogram of read counts by CDR3 nucleotide length. The
+  spectratype is useful to detect pathological and highly clonal repertoires, as the spectratype
+  of non-expanded T- and B-cells has a symmetric gaussian-like distribution.
+```
+
+In this CWL file, I have defined the VDJtools Calc Spectratype workflow with inputs for unweighted analysis, amino acid analysis, VDJ file, and output prefix. The outputs include spectratype data files in various formats. The Docker requirement specifies the Docker image to be used, and the resource requirements ensure a minimum of 2 CPU cores and 3814 MB of RAM. The tool description provides an overview of the workflow and its purpose.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...n-like distribution.\n'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, which is a histogram of read counts by CDR3 nucleotide length"
+
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+
+s:creator:
+- class: s:Organization
+  s:legalName: "Cincinnati Children's Hospital Medical Center"
+  s:location:
+  - class: s:PostalAddress
+    s:addressCountry: "USA"
+    s:addressLocality: "Cincinnati"
+    s:addressRegion: "OH"
+    s:postalCode: "45229"
+    s:streetAddress: "3333 Burnet Ave"
+    s:telephone: "+1(513)636-4200"
+  s:logo: "https://www.cincinnatichildrens.org/-/media/cincinnati%20childrens/global%20shared/childrens-logo-new.png"
+  s:department:
+  - class: s:Organization
+    s:legalName: "Allergy and Immunology"
+    s:department:
+    - class: s:Organization
+      s:legalName: "Barski Research Lab"
+      s:member:
+      - class: s:Person
+        s:name: Michael Kotliar
+        s:email: mailto:misha.kotliar@gmail.com
+        s:sameAs:
+        - id: http://orcid.org/0000-0002-6486-3898
+
+doc: |
+  VDJtools is an open-source Java/Groovy-based framework designed to facilitate analysis of
+  immune repertoire sequencing (RepSeq) data. VDJtools computes a wide set of statistics and
+  is able to perform various forms of cross-sample analysis. Both comprehensive tabular output
+  and publication-ready plots are provided.
+  
+  Calculates spectratype, which is a histogram of read counts by CDR3 nucleotide length. The
+  spectratype is useful to detect pathological and highly clonal repertoires, as the spectratype
+  of non-expanded T- and B-cells has a symmetric Gaussian-like distribution.
+```
+
+In this CWL file, I have defined the VDJtools Calc Spectratype workflow with inputs for unweighted analysis, amino acid analysis, VDJ file, and output prefix. The outputs include spectratype data files in various formats. Docker is used for consistent execution, and the resource requirements specify a minimum of 2 CPU cores and 3814 MB of RAM. The tool description highlights the purpose of the workflow in analyzing immune repertoire sequencing data and calculating the spectratype based on CDR3 nucleotide length.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...n-like distribution.\n'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.1
+class: CommandLineTool
+
+hints:
+  ResourceRequirement:
+    ramMin: 3814
+    coresMin: 2
+  DockerRequirement:
+    dockerPull: yyasumizu/vdjtools
+
+inputs:
+  unweighted:
+    type: boolean?
+    inputBinding:
+      prefix: "--unweighted"
+      position: 5
+
+  amino_acid:
+    type: boolean?
+    inputBinding:
+      prefix: "--amino-acid"
+      position: 6
+
+  vdj_file:
+    type: File
+    inputBinding:
+      position: 7
+
+  output_prefix:
+    type: string?
+    default: "./"
+    inputBinding:
+      position: 8
+
+outputs:
+  spectratype_insert_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.insert.wt.txt"
+
+  spectratype_ndn_wt_file:
+    type: File
+    outputBinding:
+      glob: "*.ndn.wt.txt"
+
+  spectratype_aa_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.aa.wt.txt"
+
+  spectratype_nt_wt_file:
+    type: File?
+    outputBinding:
+      glob: "*.nt.wt.txt"
+
+baseCommand: ["vdjtools", "CalcSpectratype"]
+
+$namespaces:
+  s: http://schema.org/
+
+$schemas:
+- https://schema.org/version/latest/schemaorg-current-https.rdf
+
+label: "VDJtools Calc Spectratype"
+s:alternateName: "Calculates spectratype, which is a histogram of read counts by CDR3 nucleotide length"
+
+s:license: http://www.apache.org/licenses/LICENSE-2.0
+
+s:creator:
+- class: s:Organization
+  s:legalName: "Cincinnati Children's Hospital Medical Center"
+  s:location:
+  - class: s:PostalAddress
+    s:addressCountry: "USA"
+    s:addressLocality: "Cincinnati"
+    s:addressRegion: "OH"
+    s:postalCode: "45229"
+    s:streetAddress: "3333 Burnet Ave"
+    s:telephone: "+1(513)636-4200"
+  s:logo: "https://www.cincinnatichildrens.org/-/media/cincinnati%20childrens/global%20shared/childrens-logo-new.png"
+  s:department:
+  - class: s:Organization
+    s:legalName: "Allergy and Immunology"
+    s:department:
+    - class: s:Organization
+      s:legalName: "Barski Research Lab"
+      s:member:
+      - class: s:Person
+        s:name: Michael Kotliar
+        s:email: mailto:misha.kotliar@gmail.com
+        s:sameAs:
+        - id: http://orcid.org/0000-0002-6486-3898
+
+doc: |
+  VDJtools is an open-source Java/Groovy-based framework designed to facilitate analysis of
+  immune repertoire sequencing (RepSeq) data. VDJtools computes a wide set of statistics and
+  is able to perform various forms of cross-sample analysis. Both comprehensive tabular output
+  and publication-ready plots are provided.
+  
+  Calculates spectratype, which is a histogram of read counts by CDR3 nucleotide length. The
+  spectratype is useful to detect pathological and highly clonal repertoires, as the spectratype
+  of non-expanded T- and B-cells has a symmetric Gaussian-like distribution.
+```
+
+In this CWL file, I have defined the VDJtools Calc Spectratype workflow with inputs for unweighted analysis, amino acid analysis, VDJ file, and output prefix. The outputs include spectratype data files in various formats. Docker is used for consistent execution, and the resource requirements specify a minimum of 2 CPU cores and 3814 MB of RAM. The tool description highlights the purpose of calculating the spectratype based on CDR3 nucleotide length in immune repertoire sequencing data.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.1', 'c...n-like distribution.\n'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.0
+class: CommandLineTool
+
+hints:
+  DockerRequirement:
+    dockerPull: quay.io/biocontainers/gatk4:4.1.1.0--0
+  ResourceRequirement:
+    coresMin: 1
+    ramMin: 1000  # 1 GB
+
+inputs:
+  # Required Inputs
+  InputFile:
+    type: File
+    inputBinding:
+      prefix: "--input"
+
+  BaseRecalFile:
+    type: File
+    inputBinding:
+      prefix: "--bqsr-recal-file"
+
+  # Optional Inputs
+  isOutputSamProgramRecord:
+    type: boolean?
+    inputBinding:
+      prefix: "--add-output-sam-program-record"
+
+  isOutputVCFCommandLine:
+    type: boolean?
+    inputBinding:
+      prefix: "--add-output-vcf-command-line"
+
+  ArgumentsFile:
+    type: File?
+    inputBinding:
+      prefix: "--arguments_file"
+
+  CloudIndexPrefetchBuilder:
+    type: int?
+    inputBinding:
+      prefix: "--cloud-index-prefetch-buffer"
+
+  # Add more optional inputs as needed
+
+outputs:
+  RecalibratedBAM:
+    type: File
+    outputBinding:
+      glob: "ApplyBQSR.bam"
+
+  IndexFile:
+    type: ["null", File]
+    outputBinding:
+      glob: "ApplyBQSR.bai"
+
+  VCFOutput:
+    type: ["null", File]
+    format: edam:format_3016  # VCF
+    outputBinding:
+      glob: "*.vc. Got: while scanning a quoted scalar
+  in "<unicode string>", line 63, column 13:
+          glob: "*.vc
+                ^
+found unexpected end of stream
+  in "<unicode string>", line 63, column 18:
+          glob: "*.vc
+                     ^
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+#!/usr/bin/env cwl-runner
+cwlVersion: v1.0
+class: CommandLineTool
+
+hints:
+  DockerRequirement:
+    dockerPull: quay.io/biocontainers/gatk4:4.1.1.0--0
+  ResourceRequirement:
+    coresMin: 1
+    ramMin: 1000  # 1 GB
+
+inputs:
+  BAMFile:
+    type: File
+    inputBinding:
+      position: 1
+      prefix: "--input"
+    doc: "Input BAM file for base quality score recalibration."
+
+  BaseRecalibrationFile:
+    type: File
+    inputBinding:
+      position: 2
+      prefix: "--bqsr-recal-file"
+    doc: "Base recalibration file for quality score recalibration."
+
+  Output:
+    type: string
+    outputBinding:
+      glob: "ApplyBQSR.bam"
+    doc: "Recalibrated BAM file as output."
+
+  OutputIndex:
+    type: string?
+    outputBinding:
+      glob: "ApplyBQSR.bai"
+    doc: "Optional index file for the recalibrated BAM output."
+
+  OutputVCF:
+    type: string?
+    outputBinding:
+      glob: "*.vcf"
+    doc: "Optional VCF output file."
+
+  # Optional parameters for fine-tuning recalibration process
+  isOutputSamProgramRecord:
+    type: boolean?
+    inputBinding:
+      prefix: "--add-output-sam-program-record"
+    doc: "Include output SAM program record."
+
+  isOutputVCFCommandLine:
+    type: boolean?
+    inputBinding:
+      prefix: "--. Got: while scanning a quoted scalar
+  in "<unicode string>", line 56, column 15:
+          prefix: "--
+                  ^
+found unexpected end of stream
+  in "<unicode string>", line 56, column 18:
+          prefix: "--
+                     ^
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 17280 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 17184 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Failed to parse CWLDocument from completion ```yaml
+cwlVersion: v1.2
+class: Workflow
+id: variant-calling-workflow
+doc: |
+  Workflow for germline variant calling from whole genome sequencing data using GATK4
+
+requirements:
+  InlineJavascriptRequirement: {}
+  ScatterFeatureRequirement: {}
+
+inputs:
+  reads:
+    type: File[]
+    label: "Input FASTQ files for paired-end sequencing"
+  genome_fasta:
+    type: File
+    label: "Reference genome FASTA file"
+    secondaryFiles: [.fai, ^.dict]
+  genome_index:
+    type: Directory
+    label: "Directory containing genome index files"
+  genome_prefix:
+    type: string
+    label: "Prefix for genome index files"
+  total_threads:
+    type: int
+    label: "Total number of threads to use"
+  haplotype_threads:
+    type: int
+    label: "Number of threads for haplotype calling"
+  snp_filters:
+    type:
+      type: array
+      items:
+        type: array
+        items: string
+    label: "Filters for SNP variant calling"
+  indel_filters:
+    type:
+      type: array
+      items:
+        type: array
+        items: string
+    label: "Filters for indel variant calling"
+
+outputs:
+  bam_flagstat_out:
+    type: File
+    outputSource: alignment/bam_flagstat_out
+    label: "BAM flagstat output file"
+  bam_stats_out:
+    type: File
+    outputSource: alignment/bam_stats_out
+    label: "BAM statistics output file"
+  sorted_indexed_bam:
+    type: File
+    outputSource: recal_reads_bam_index/indexed_bam
+    label: "Sorted and indexed BAM file"
+    secondaryFiles: .bai
+  mark_duplicates_metrics:
+    type: File
+    outputSource: mark_duplicates/metrics
+    label: "Mark duplicates metrics file"
+  snp_out:
+    type: File
+    outputSource: gatk_select_variants_snp_filtered_recal/output
+    label: "Filtered SNP variants in VCF format"
+    secondaryFiles: .idx
+  indels_out:
+    type: File
+    outputSource: gatk_select_variants_indels_filtered_recal/output
+    label: "Filtered indel variants in VCF format"
+    secondaryFiles: .idx
+
+steps:
+  # Step to extract chromosome names from the reference genome
+  get_chromosomes:
+    run: extract-chrom-names-from-fasta.cwl
+    in:
+      file: genome_fasta
+    out: [output]
+
+  # Step for alignment using BWA
+  alignment:
+    run: bwa-alignment-sort.cwl
+    in:
+      reads: reads
+      genome_index: genome_index
+      genome_prefix: genome_prefix
+      threads: total_threads
+    out: [sorted_indexed_bam, bam_flagstat_out, bam_stats_out]
+
+  # Step to mark duplicates
+  mark_duplicates:
+    run: ../../tools/gatk/gatk-MarkDuplicates.cwl
+    in:
+      I: alignment/sorted_indexed_bam
+      O: $(inputs.I.nameroot + "_sorted_dedup_reads.bam")
+      M: $(inputs.I.nameroot + "_dedup_metrics.txt")
+    out: [output, metrics]
+
+  # Step to index the deduplicated BAM file
+  index_bam:
+    run: ../../tools/samtools/samtools-index-bam.cwl
+    in:
+      bam: mark_duplicates/output
+    out: [indexed_bam]
+
+  # Step to split BAM file by chromosome
+  split_bam_chrom:
+    run: ../../tools/samtools/samtools-view-indexed.cwl
+    scatter: region
+    in:
+      isbam: true
+      input: index_bam/indexed_bam
+      threads: 1
+      region: get_chromosomes/output
+      output_name: $(inputs.input.nameroot + "_" + inputs.region + ".bam")
+    out: [output]
+
+  # Additional steps for variant calling, filtering, and post-processing (not shown for brevity)
+
+  # Final steps for variant calling output
+  gatk_select_variants_snp_filtered_recal:
+    run: ../../tools/gatk/gatk-SelectVariants.cwl
+    in:
+      R: genome_fasta
+      V: gather_vcf_recal/output
+      selectType: "SNP"
+      O: $(inputs.V.nameroot.replace("_raw_variants_recal", "_raw_snps_recal.vcf"))
+    out: [output]
+
+  gatk_select_variants_indels_filtered_recal:
+    run: ../../tools/gatk/gatk-SelectVariants.cwl
+    in:
+      R: genome_fasta
+      V: gather_vcf_recal/output
+      selectType: "INDEL"
+      O: $(inputs.V.nameroot.replace("_raw_variants_recal", "_raw_indels_recal.vcf"))
+    out: [output]
+
+# Additional steps for post-processing and analysis can be added here
+
+```
+
+Assumptions/Decisions:
+- The workflow includes essential steps for variant calling such as alignment, marking duplicates, variant calling, and variant filtering.
+- Additional steps for post-processing, quality control, and downstream analysis are not shown for brevity but can be added as needed.
+- The workflow assumes the availability of CWL tool descriptions for tools like BWA, GATK, and Samtools for alignment, variant calling, and BAM file manipulation.
+- The workflow is designed to be scalable and parallelizable, utilizing multiple threads for efficient processing.
+- Input FASTQ files are assumed to be paired-end sequencing data.
+- Filters for SNP and indel variant calling are provided as input parameters to customize the variant calling process.. Got: 1 validation error for CWLDocument
+cwl_object
+  Field required [type=missing, input_value={'cwlVersion': 'v1.2', 'c...'}, 'out': ['output']}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.8/v/missing
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 21671 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+Error during generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 21671 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
