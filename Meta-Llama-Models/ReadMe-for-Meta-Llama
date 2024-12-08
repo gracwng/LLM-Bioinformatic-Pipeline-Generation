@@ -1,0 +1,8 @@
+Meta Llama Models were used from Hugging Face. These were the only ones with files that were somewhat salvageable. A lot of problems came up regarding memory management and not being
+able to compare metrics across the models. 
+
+The attempt to code and fine-tune to our CWL data models uploaded are 
+Meta 1B
+Meta 3B
+Meta 8B
+Meta 8B quantized 
